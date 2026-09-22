@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import AddVideoScreen from '@/screen/AddVideoScreen'
 
 export const metadata: Metadata = {
   title: "Add video",
@@ -6,8 +7,6 @@ export const metadata: Metadata = {
 
 export default function AddVideoPage() {
   return (
-    <div>
-      AddVideoPage
-    </div>
+    <AddVideoScreen />
   );
 }
