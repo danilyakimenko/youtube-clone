@@ -49,13 +49,20 @@ const AddVideoScreen = () => {
     resolver: zodResolver(schema),
   })
 
-  const onSubmit = (data: Inputs) => {
+  const onSubmit = async (data: Inputs) => {
     const url = new URL(data.videoUrl)
     const videoId = urlParser(url)
 
     if (!videoId) return
 
     setVideoId(videoId)
+    await fetch('/api/videos', {
+      method: 'POST',
+      body: JSON.stringify({ videoId }),
+    })
+    const dataFromServer = await fetch('/api/videos', {
+      method: 'GET',
+    })
   }
 
   const videoUrlErrorMessage = errors.videoUrl?.message
