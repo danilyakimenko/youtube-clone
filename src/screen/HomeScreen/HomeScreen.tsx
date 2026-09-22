@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -30,7 +32,20 @@ const HomeScreen = () => {
     <div>
       {data && data.length > 0 ?
         data.map((videoId) => (
-          <iframe
+          <Link
+            href={`/video/${videoId}`}
+            type="button"
+            key={videoId}
+          >
+            <Image
+              src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+              width={500}
+              height={300}
+              alt="Video from YouTube"
+
+            />
+          </Link>
+          /*<iframe
             width={500}
             height={300}
             src={`https://www.youtube.com/embed/${videoId}`}
@@ -39,7 +54,7 @@ const HomeScreen = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
-          ></iframe>
+          ></iframe>*/
         )) : (
         <div>No videos</div>
       )}
