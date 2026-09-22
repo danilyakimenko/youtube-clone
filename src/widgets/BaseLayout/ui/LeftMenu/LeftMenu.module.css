@@ -1,0 +1,9 @@
+.leftMenu {
+  width: 300px;
+  border-right: 1px solid #FFFFFF;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
