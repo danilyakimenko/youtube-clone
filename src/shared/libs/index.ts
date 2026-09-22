@@ -1,1 +1,1 @@
-export { default } from './url-parser'
+export { urlParser, isAllowedHost, YOUTUBE_DOMAINS } from './url-parser'

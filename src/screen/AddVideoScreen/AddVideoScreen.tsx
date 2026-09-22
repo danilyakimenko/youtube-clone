@@ -4,11 +4,34 @@ import { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import parseYouTube from '@/shared/libs'
+import { urlParser, isAllowedHost, YOUTUBE_DOMAINS } from '@/shared/libs'
 import styles from './AddVideoScreen.module.css'
 
 const schema = z.object({
-  videoUrl: z.string().min(1, { message: 'The field must not be empty.' }),
+  videoUrl: z
+    .string()
+    .min(1, {message: 'The field must not be empty.'})
+    .superRefine((url, ctx) => {
+      let parsedURL: URL
+      try {
+        parsedURL = new URL(url)
+      } catch {
+        ctx.addIssue({
+          code: "custom",
+          message: 'The field must contain a link',
+          input: url,
+        })
+        return
+      }
+
+      if (!isAllowedHost(parsedURL.host, YOUTUBE_DOMAINS)) {
+        ctx.addIssue({
+          code: "custom",
+          message: 'The link should be on YouTube.',
+          input: url,
+        })
+      }
+    })
 })
 
 type Inputs = {
@@ -21,28 +44,14 @@ const AddVideoScreen = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
 
   const onSubmit = (data: Inputs) => {
-
-    const url = data.videoUrl
-
-    if (!url) return
-
-    let finalUrl: URL | null = null
-
-    try {
-      finalUrl = new URL(url)
-    } catch (error) {
-      console.error('error', error)
-    }
-
-    if (!finalUrl) return
-
-    const videoId = parseYouTube(finalUrl)
+    const url = new URL(data.videoUrl)
+    const videoId = urlParser(url)
 
     if (!videoId) return
 
