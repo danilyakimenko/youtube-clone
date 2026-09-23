@@ -14,7 +14,10 @@ const Header = (props: HeaderProps) => {
 
   return (
     <header className={styles.header}>
-      <Link href="/">
+      <Link
+        href="/"
+        title="YouTube Home"
+      >
         <Image
           width={93}
           height={20}

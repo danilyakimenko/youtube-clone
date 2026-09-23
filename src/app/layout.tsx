@@ -1,23 +1,13 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import './styles/index'
 import BaseLayout from '@/widgets/BaseLayout'
 import React from 'react'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "YouTube Clone",
   description: "YouTube Clone pet project",
-};
+}
 
 const RootLayout = ({
   children,
@@ -26,7 +16,7 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="en">
-    <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <body>
     <BaseLayout>
       {children}
     </BaseLayout>

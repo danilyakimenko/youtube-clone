@@ -1,9 +1,37 @@
 .leftMenu {
-  width: 300px;
-  border-right: 1px solid #FFFFFF;
+  padding: 12px;
+  font-size: 14px;
 }
 
 .navigation {
   display: flex;
   flex-direction: column;
+}
+
+.list {
+  display: grid;
+  row-gap: 6px;
+}
+
+.listItem {
+  padding-inline: 12px;
+  border-radius: 10px;
+
+  &:hover {
+    background-color: rgb(255 255 255 / 0.2);
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+  height: 40px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  filter: invert(1);
 }
