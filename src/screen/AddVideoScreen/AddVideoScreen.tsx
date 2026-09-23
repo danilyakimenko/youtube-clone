@@ -88,8 +88,9 @@ const AddVideoScreen = () => {
         <button
           className={styles.button}
           type="submit"
+          title="Upload video"
         >
-          Загрузить
+          Upload
         </button>
       </form>
 

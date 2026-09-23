@@ -3,18 +3,20 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { AllVideosDto } from '@/shared/types/typesFromBackend'
 import styles from './HomeScreen.module.scss'
 
 const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState<string[] | null>(null)
+  const [data, setData] = useState<AllVideosDto['data'] | null>(null)
   useEffect(() => {
     (async () => {
       try {
         const dataFromServer = await fetch('/api/videos', {
           method: 'GET',
         })
-        const response = await dataFromServer.json()
+        const response = await dataFromServer.json() as AllVideosDto
+
         setData(response.data)
       } finally {
         setIsLoading(false)
@@ -31,7 +33,7 @@ const HomeScreen = () => {
   return (
     <div className={styles.container}>
       {data && data.length > 0 ?
-        data.map((videoId) => (
+        data.map(({ videoId, title, authorName, authorUrl }) => (
           <div
             className={styles.videoBlock}
             key={videoId}
@@ -46,7 +48,7 @@ const HomeScreen = () => {
             <div className={styles.wrapper}>
               <Link
                 className={styles.channelImageLink}
-                href="/profile/123"
+                href={`/profile/${authorUrl}`}
               >
                 <Image
                   className={styles.channelImage}
@@ -58,13 +60,13 @@ const HomeScreen = () => {
               </Link>
               <div className={styles.videoInfo}>
                 <p className={styles.videoName}>
-                  Video name
+                  {title}
                 </p>
                 <Link
                   className={styles.channelNameLink}
-                  href="/profile/123"
+                  href={`/profile/${authorUrl}`}
                 >
-                  Channel name
+                  {authorName}
                 </Link>
               </div>
             </div>
