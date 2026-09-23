@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import './styles/index'
 import BaseLayout from '@/widgets/BaseLayout'
 import React from 'react'
+import Header from '@/widgets/BaseLayout/ui/Header'
 
 
 export const metadata: Metadata = {
@@ -17,6 +18,7 @@ const RootLayout = ({
   return (
     <html lang="en">
     <body>
+    <Header profileId="123" />
     <BaseLayout>
       {children}
     </BaseLayout>

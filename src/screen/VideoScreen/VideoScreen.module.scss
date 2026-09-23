@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 20px;
+}
+
+.iframe {
+  width: 80%;
+  height: 90%;
+  border-radius: var(--border-radius-l);
+  aspect-ratio: 16/9;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 700px;
+  row-gap: 10px;
+  align-items: start;
+}
+
+.channelImage {
+  @include square(32px);
+
+  border-radius: 50%;
+  transition-duration: var(--transition-duration);
+
+  @include hover {
+    opacity: 0.7;
+  }
+}
+
+.videoInfo {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+}
+
+.videoName {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.channelNameLink {
+  color: var(--color-gray);
+  transition-duration: var(--transition-duration);
+
+  @include hover {
+    color: var(--color-white);
+  }
+}
