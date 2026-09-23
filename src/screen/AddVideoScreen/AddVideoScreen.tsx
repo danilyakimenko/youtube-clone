@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { urlParser, isAllowedHost, YOUTUBE_DOMAINS } from '@/shared/libs'
-import styles from './AddVideoScreen.module.css'
+import styles from './AddVideoScreen.module.scss'
 
 const schema = z.object({
   videoUrl: z
@@ -69,21 +69,24 @@ const AddVideoScreen = () => {
   const hasVideoUrlInputError = Boolean(videoUrlErrorMessage)
 
   return (
-    <div>
+    <div className={styles.container}>
       <form
+        className={styles.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <label>
+        <label className={styles.label}>
           <input
+            className={styles.input}
             type="text"
             placeholder="Insert the link to the video"
             {...register(`videoUrl`)}
           />
           {hasVideoUrlInputError && (
-            <p>{videoUrlErrorMessage}</p>
+            <p className={styles.error}>{videoUrlErrorMessage}</p>
           )}
         </label>
         <button
+          className={styles.button}
           type="submit"
         >
           Загрузить
@@ -92,6 +95,7 @@ const AddVideoScreen = () => {
 
       {videoId && (
         <iframe
+          className={styles.iframe}
           width="500"
           height="300"
           src={`https://www.youtube.com/embed/${videoId}`}
@@ -100,7 +104,7 @@ const AddVideoScreen = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
-        ></iframe>
+        />
       )}
     </div>
   )

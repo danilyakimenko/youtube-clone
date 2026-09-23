@@ -17,7 +17,7 @@ const VideoScreen = (props: VideoScreenProps) => {
     <div className={styles.container}>
       <iframe
         className={styles.iframe}
-        src={`https://www.youtube.com/embed/${videoId}`}
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
         width={1200}
         height={600}
         title="YouTube video player"

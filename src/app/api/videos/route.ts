@@ -11,6 +11,8 @@ export async function GET() {
   videosData.add('-lec--FlSJ4')
   videosData.add('NnKVD-DZmYQ')
   videosData.add('mC4GQTy5sqk')
+  videosData.add('iv3U78TaK8w')
+  videosData.add('ifmWdG3vngA')
 
   return Response.json({
     ok: true,
