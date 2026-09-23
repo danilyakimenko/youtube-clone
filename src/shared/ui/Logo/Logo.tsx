@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 type LogoProps = {
-  className: string
+  className?: string
 }
 
 const Logo = (props: LogoProps) => {

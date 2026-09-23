@@ -1,10 +1,10 @@
-import styles from './LeftMenu.module.css'
 import Link from 'next/link'
 import homeIcon from '@/shared/assets/icons/home.svg'
 import AddVideoIcon from '@/shared/assets/icons/arrow-top.svg'
 import ProfileIcon from '@/shared/assets/icons/profile.svg'
 import YourVideosIcon from '@/shared/assets/icons/your-videos.svg'
 import Image from 'next/image'
+import styles from './LeftMenu.module.scss'
 
 
 const linkItems = [

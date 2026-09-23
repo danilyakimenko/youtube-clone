@@ -1,7 +1,6 @@
 import React from 'react'
-import Header from '../Header'
 import LeftMenu from '../LeftMenu'
-import styles from './BaseLayout.module.css'
+import styles from './BaseLayout.module.scss'
 
 type BaseLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -9,11 +8,10 @@ type BaseLayoutProps = Readonly<{
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
-    <div className={styles.container}>
-      <Header profileId="123" />
+    <main className={styles.container}>
       <LeftMenu />
       {children}
-    </div>
+    </main>
   )
 }
 

@@ -12,8 +12,8 @@ const VideoScreen = (props: VideoScreenProps) => {
   return (
     <iframe
       src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-      width={1400}
-      height={800}
+      width={1200}
+      height={600}
       title="YouTube video player"
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

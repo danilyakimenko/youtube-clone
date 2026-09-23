@@ -92,8 +92,8 @@ const AddVideoScreen = () => {
 
       {videoId && (
         <iframe
-          width="560"
-          height="315"
+          width="500"
+          height="300"
           src={`https://www.youtube.com/embed/${videoId}`}
           title="YouTube video player"
           frameBorder="0"

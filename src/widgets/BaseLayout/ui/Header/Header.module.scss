@@ -1,5 +1,10 @@
 .header {
+  width: 100%;
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin-inline: auto;
+  padding-inline: 16px;
   display: flex;
+  height: 55px;
   justify-content: space-between;
   align-items: center;
 }

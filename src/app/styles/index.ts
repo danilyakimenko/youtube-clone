@@ -1,4 +1,4 @@
-import './reset.css'
-import './fonts.css'
-import './variables.css'
-import './globals.css'
+import './reset.scss'
+import './fonts.scss'
+import './variables.scss'
+import './globals.scss'

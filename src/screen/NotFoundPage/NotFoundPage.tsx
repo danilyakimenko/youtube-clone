@@ -1,6 +1,6 @@
-import styles from './NotFoundPage.module.css'
 import Image from 'next/image'
 import Logo from '@/shared/ui/Logo'
+import styles from './NotFoundPage.module.scss'
 
 const NotFoundPage = () => {
   return (
