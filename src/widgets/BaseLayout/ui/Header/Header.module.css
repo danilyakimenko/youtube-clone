@@ -1,3 +1,38 @@
 .header {
-  border-bottom: 1px solid #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.addVideoLink {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  width: 110px;
+  height: 40px;
+  border-radius: 18px;
+  background-color: rgb(255 255 255 / 0.1);
+
+  &:hover {
+    background-color: rgb(255 255 255 / 0.2);
+  }
+
+  &::before {
+    content: '+';
+    font-size: 24px;
+  }
+}
+
+.profileLink {
+  width: 32px;
+  height: 32px;
+  background-color: red;
+  border-radius: 50%;
 }

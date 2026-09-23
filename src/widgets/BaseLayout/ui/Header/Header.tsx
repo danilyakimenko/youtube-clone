@@ -1,18 +1,41 @@
 import styles from './Header.module.css'
 import Image from 'next/image'
-import LogoImage from './logo.svg'
+
 import Link from 'next/link'
 
-const Header = () => {
+type HeaderProps = {
+  profileId: string
+}
+
+const Header = (props: HeaderProps) => {
+  const {
+    profileId,
+  } = props
+
   return (
     <header className={styles.header}>
       <Link href="/">
         <Image
-          width={40}
-          src={LogoImage}
+          width={93}
+          height={20}
+          src="/logo.svg"
           alt="YouTube Logo"
         />
       </Link>
+      <div className={styles.wrapper}>
+        <Link
+          className={styles.addVideoLink}
+          href="/editor/addVideo"
+        >
+          Create
+        </Link>
+        <Link
+          className={styles.profileLink}
+          href={`/profile/${profileId}`}
+          aria-label="Go to your profile"
+        >
+        </Link>
+      </div>
     </header>
   )
 }
