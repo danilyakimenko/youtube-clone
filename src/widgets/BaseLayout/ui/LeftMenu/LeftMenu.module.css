@@ -1,5 +1,5 @@
 .leftMenu {
-  padding: 12px;
+  padding: 16px;
   font-size: 14px;
 }
 
@@ -14,7 +14,7 @@
 }
 
 .listItem {
-  padding-inline: 12px;
+  padding-inline: 14px;
   border-radius: 10px;
 
   &:hover {
@@ -27,6 +27,7 @@
   align-items: center;
   column-gap: 24px;
   height: 40px;
+
 }
 
 .icon {
