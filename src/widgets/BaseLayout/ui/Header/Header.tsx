@@ -1,7 +1,7 @@
 import styles from './Header.module.css'
-import Image from 'next/image'
 
 import Link from 'next/link'
+import Logo from '@/shared/ui/Logo'
 
 type HeaderProps = {
   profileId: string
@@ -14,17 +14,7 @@ const Header = (props: HeaderProps) => {
 
   return (
     <header className={styles.header}>
-      <Link
-        href="/"
-        title="YouTube Home"
-      >
-        <Image
-          width={93}
-          height={20}
-          src="/logo.svg"
-          alt="YouTube Logo"
-        />
-      </Link>
+      <Logo />
       <div className={styles.wrapper}>
         <Link
           className={styles.addVideoLink}
