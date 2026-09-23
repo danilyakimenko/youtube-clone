@@ -1,46 +1,16 @@
 import Link from 'next/link'
-import homeIcon from '@/shared/assets/icons/home.svg'
-import AddVideoIcon from '@/shared/assets/icons/arrow-top.svg'
-import ProfileIcon from '@/shared/assets/icons/profile.svg'
-import YourVideosIcon from '@/shared/assets/icons/your-videos.svg'
 import Image from 'next/image'
+import linkItems from './ui/constants'
 import styles from './LeftMenu.module.scss'
-
-
-const linkItems = [
-  {
-    title: 'Home',
-    href: '/',
-    linkIcon: homeIcon,
-  },
-
-  {
-    title: 'Add video',
-    href: '/editor/addVideo',
-    linkIcon: AddVideoIcon,
-  },
-
-  {
-    title: 'Profile',
-    href: '/profile/123',
-    linkIcon: ProfileIcon,
-  },
-
-  {
-    title: 'Your videos',
-    href: '/',
-    linkIcon: YourVideosIcon,
-  },
-]
 
 const LeftMenu = () => {
   return (
     <aside className={styles.leftMenu}>
-      <nav className={styles.navigation}>
+      <nav>
         <ul className={styles.list}>
           {linkItems.map(({title, href, linkIcon}, index) => (
             <li
-              className={styles.listItem}
+              className={styles.item}
               title={title}
               key={index}
             >

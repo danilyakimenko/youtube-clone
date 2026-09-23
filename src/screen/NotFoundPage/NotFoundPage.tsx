@@ -12,7 +12,7 @@ const NotFoundPage = () => {
         alt="Page not found"
       />
       <div className={styles.wrapper}>
-        <Logo className={styles.logo} />
+        <Logo isBig />
         <p>
           This page isn't available. Sorry about that.<br/>
           Try searching for something else.

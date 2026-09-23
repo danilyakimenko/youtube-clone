@@ -1,21 +1,26 @@
 .leftMenu {
-  padding: 16px;
-  font-size: 14px;
-}
-
-.navigation {
-  display: flex;
-  flex-direction: column;
+  padding-block: var(--container-padding-x);
+  font-size: 14px
 }
 
 .list {
-  display: grid;
-  row-gap: 6px;
+  gap: 6px;
+
+  @include mobile-above {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include mobile {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.listItem {
-  padding-inline: 14px;
-  border-radius: 10px;
+.item {
+  max-width: 240px;
+  padding-inline: var(--container-padding-x);
+  border-radius: var(--border-radius-m);
 
   &:hover {
     background-color: rgb(255 255 255 / 0.2);
@@ -23,15 +28,16 @@
 }
 
 .link {
-  display: flex;
+  width: 100%;
+  display: inline-flex;
   align-items: center;
-  column-gap: 24px;
+  column-gap: fluid(24, 16);
   height: 40px;
+  color: var(--color-white);
 }
 
 .icon {
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
+  @include square(24px);
+
   filter: invert(1);
 }

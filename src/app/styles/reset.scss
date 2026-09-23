@@ -127,6 +127,15 @@ a:where([class]) {
   display: inline-flex;
 }
 
+a {
+  color: inherit;
+
+  &[class] {
+    text-decoration: none;
+  }
+}
+
+
 /**
   Курсор-рука при наведении на элемент
  */

@@ -8,7 +8,7 @@ type BaseLayoutProps = Readonly<{
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
-    <main className={styles.container}>
+    <main className={`${styles.main} container`}>
       <LeftMenu />
       {children}
     </main>

@@ -1,23 +1,27 @@
-import styles from './Logo.module.css'
+import styles from './Logo.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
+import clsx from 'clsx'
 
 type LogoProps = {
-  className?: string
+  isBig?: boolean
 }
 
 const Logo = (props: LogoProps) => {
   const {
-    className,
+    isBig,
   } = props
 
   return (
     <Link
+      className={clsx(styles.logo, {
+        [styles.big]: isBig
+      })}
       href="/"
       title="YouTube Home"
     >
       <Image
-        className={className}
+        className={styles.logoImage}
         width={93}
         height={20}
         src="/logo.svg"

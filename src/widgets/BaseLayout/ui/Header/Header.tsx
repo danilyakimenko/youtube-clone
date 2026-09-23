@@ -13,12 +13,13 @@ const Header = (props: HeaderProps) => {
   } = props
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} container`}>
       <Logo />
       <div className={styles.wrapper}>
         <Link
           className={styles.addVideoLink}
           href="/editor/addVideo"
+          title="Create Video"
         >
           Create
         </Link>
@@ -26,8 +27,8 @@ const Header = (props: HeaderProps) => {
           className={styles.profileLink}
           href={`/profile/${profileId}`}
           aria-label="Go to your profile"
-        >
-        </Link>
+          title="Profile"
+        />
       </div>
     </header>
   )

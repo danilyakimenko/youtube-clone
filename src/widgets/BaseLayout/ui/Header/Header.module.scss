@@ -1,12 +1,35 @@
 .header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
   width: 100%;
-  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
-  margin-inline: auto;
-  padding-inline: 16px;
-  display: flex;
   height: 55px;
+  display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-inline: calc(var(--container-padding-x) * 2);
+  border-bottom: 1px solid transparent;
+  animation-name: scrolling-header;
+  animation-fill-mode: both;
+  animation-timeline: scroll();
+  animation-range: 0 100px;
+
+  @mixin scrolling-header-styles {
+    background-color: var(--color-black-08);
+    border-color: var(--color-gray);
+  }
+
+  @keyframes scrolling-header {
+    to {
+      @include scrolling-header-styles;
+    }
+  }
+
+  @supports (not (animation-timeline: scroll())) {
+    @include scrolling-header-styles;
+
+    position: sticky !important;
+  }
 }
 
 .wrapper {
@@ -20,24 +43,29 @@
   justify-content: center;
   align-items: center;
   column-gap: 8px;
-  width: 110px;
-  height: 40px;
-  border-radius: 18px;
+  padding: 2px 20px;
+  border-radius: var(--border-radius-l);
   background-color: rgb(255 255 255 / 0.1);
+  transition-duration: var(--transition-duration);
 
-  &:hover {
+  @include hover {
     background-color: rgb(255 255 255 / 0.2);
   }
 
   &::before {
     content: '+';
-    font-size: 24px;
+    font-size: 1.5em;
   }
 }
 
 .profileLink {
-  width: 32px;
-  height: 32px;
-  background-color: red;
+  @include square(36px);
+
   border-radius: 50%;
+  background-color: var(--color-accent);
+  transition-duration: var(--transition-duration);
+
+  @include hover {
+  background-color: rgb(255 255 255 / 0.2);
+}
 }
