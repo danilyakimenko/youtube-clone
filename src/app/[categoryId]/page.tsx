@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import HomeScreen from '@/screen/HomeScreen'
+import VIDEO_CATEGORIES from '@/shared/constants/videoCategories'
 
 export const metadata: Metadata = {
   title: "Videos in category: ...",
@@ -22,7 +23,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       throw new Error('No data about video')
     }
 
-    return <HomeScreen data={response.data} />
+    const finalCategories = VIDEO_CATEGORIES
+      .filter(({ id }) => response.categories.includes(id))
+
+    return <HomeScreen data={response.data} categories={finalCategories} />
   }
   catch (error) {
     console.error(error)

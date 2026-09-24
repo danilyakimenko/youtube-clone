@@ -62,7 +62,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const categories: string[] = []
+    const categories = Array.from(new Set([...videosData].map((videoData) => videoData[1].categoryId)))
     const promises = [...videosData]
       .filter((videoData) => categoryIdParam ? videoData[1].categoryId === categoryIdParam : true)
       .map(async (videoData) => {
@@ -73,10 +73,6 @@ export async function GET(request: Request) {
         )
         const videoInfo = await rawResult.json() as OEmbedVideoInfo
         const authorUrl = videoInfo.author_url.split('/').at(-1)
-
-        if (!categories.includes(categoryId)) {
-          categories.push(categoryId)
-        }
 
         return {
           videoId,
@@ -91,7 +87,7 @@ export async function GET(request: Request) {
     return Response.json({
       ok: true,
       data: result,
-      ...(categoryIdParam ? {} : { categories })
+      categories
     })
   }
   catch (error) {
