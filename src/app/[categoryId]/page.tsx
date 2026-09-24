@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import HomeScreen from '@/screen/HomeScreen'
-import VIDEO_CATEGORIES from '@/shared/constants/videoCategories'
+import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 
 export const metadata: Metadata = {
   title: "Videos in category: ...",

@@ -1,4 +1,9 @@
-const VIDEO_CATEGORIES = [
+export const DEFAULT_CATEGORY = {
+    title: 'All',
+    id: 'all',
+  }
+
+export const VIDEO_CATEGORIES = [
   {
     title: 'News',
     id: 'news',
@@ -16,5 +21,3 @@ const VIDEO_CATEGORIES = [
     id: 'sport',
   },
 ]
-
-export default VIDEO_CATEGORIES

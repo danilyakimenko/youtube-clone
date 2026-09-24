@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import styles from './HomeScreen.module.scss'
-import VIDEO_CATEGORIES from '@/shared/constants/videoCategories'
+import { VIDEO_CATEGORIES, DEFAULT_CATEGORY } from '@/shared/constants/videoCategories'
 
 type HomeScreenProps = {
   data: GetAllVideosDto['data']
@@ -12,14 +12,18 @@ type HomeScreenProps = {
 }
 
 const HomeScreen = ({data, categories}: HomeScreenProps) => {
-  // if (isLoading) {
-  //   return <div>Loading...</div>
-  // }
-
   return (
     <div className={styles.container}>
       {categories.length > 0 && (
         <ul className={styles.categoriesList}>
+          <li>
+            <Link
+              className={styles.categoryLink}
+              href="/"
+            >
+              {DEFAULT_CATEGORY.title}
+            </Link>
+          </li>
           {categories.map((category) => (
             <li key={category.id}>
               <Link
