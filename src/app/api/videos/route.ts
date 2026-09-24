@@ -20,41 +20,42 @@ type VideoDataContent = {
 }
 
 const videosData = new Map<string, VideoDataContent>([
-  ['qULWrtxYuxk', { id: 'qULWrtxYuxk', categoryId: 'games'}],
-  ['KO-G5DVNlw4', { id: 'KO-G5DVNlw4', categoryId: 'news'}],
-  ['tvnpQ0dORI8', { id: 'tvnpQ0dORI8', categoryId: 'news'}],
-  ['yNMi0CBJpKA', { id: 'yNMi0CBJpKA', categoryId: 'news'}],
-  ['tOMc0XCmuYQ', { id: 'tOMc0XCmuYQ', categoryId: 'music'}],
-  ['Vv94is3BZ3I', { id: 'Vv94is3BZ3I', categoryId: 'games'}],
-  ['e1pZIfretEs', { id: 'e1pZIfretEs', categoryId: 'music'}],
-  ['-lec--FlSJ4', { id: '-lec--FlSJ4', categoryId: 'sport'}],
-  ['NnKVD-DZmYQ', { id: 'NnKVD-DZmYQ', categoryId: 'games'}],
-  ['mC4GQTy5sqk', { id: 'mC4GQTy5sqk', categoryId: 'sport'}],
-  ['iv3U78TaK8w', { id: 'iv3U78TaK8w', categoryId: 'music'}],
-  ['ifmWdG3vngA', { id: 'ifmWdG3vngA', categoryId: 'news'}],
+  ['qULWrtxYuxk', {id: 'qULWrtxYuxk', categoryId: 'games'}],
+  ['KO-G5DVNlw4', {id: 'KO-G5DVNlw4', categoryId: 'news'}],
+  ['tvnpQ0dORI8', {id: 'tvnpQ0dORI8', categoryId: 'news'}],
+  ['yNMi0CBJpKA', {id: 'yNMi0CBJpKA', categoryId: 'news'}],
+  ['tOMc0XCmuYQ', {id: 'tOMc0XCmuYQ', categoryId: 'music'}],
+  ['Vv94is3BZ3I', {id: 'Vv94is3BZ3I', categoryId: 'games'}],
+  ['e1pZIfretEs', {id: 'e1pZIfretEs', categoryId: 'music'}],
+  ['-lec--FlSJ4', {id: '-lec--FlSJ4', categoryId: 'sport'}],
+  ['NnKVD-DZmYQ', {id: 'NnKVD-DZmYQ', categoryId: 'games'}],
+  ['mC4GQTy5sqk', {id: 'mC4GQTy5sqk', categoryId: 'sport'}],
+  ['iv3U78TaK8w', {id: 'iv3U78TaK8w', categoryId: 'music'}],
+  ['ifmWdG3vngA', {id: 'ifmWdG3vngA', categoryId: 'news'}],
 ])
 
 export async function GET(request: Request) {
   const urlObject = new URL(request.url)
-  const videoId = urlObject.searchParams.get('videoId')
+  const videoIdParam = urlObject.searchParams.get('videoId')
+  const categoryIdParam = urlObject.searchParams.get('categoryId')
 
-  if (videoId) {
+  if (videoIdParam) {
     try {
       const rawResult = await fetch(`
-        https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+        https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoIdParam}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
       const authorUrl = videoInfo.author_url.split('/').at(-1)
-
       const result = {
-        videoId,
+        videoId: videoIdParam,
         authorUrl,
         title: videoInfo.title,
         authorName: videoInfo.author_name,
       }
 
       return Response.json({ok: true, data: result})
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error)
       return Response.json({ok: false, data: null}, {status: 500})
     }
@@ -62,30 +63,36 @@ export async function GET(request: Request) {
 
   try {
     const categories: string[] = []
-    const promises = [...videosData].map(async (videoData) => {
-      const videoId = videoData[1].id
-      const categoryId = videoData[1].categoryId
-      const rawResult = await fetch(`
+    const promises = [...videosData]
+      .filter((videoData) => categoryIdParam ? videoData[1].categoryId === categoryIdParam : true)
+      .map(async (videoData) => {
+        const videoId = videoData[1].id
+        const categoryId = videoData[1].categoryId
+        const rawResult = await fetch(`
         https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
-      )
-      const videoInfo = await rawResult.json() as OEmbedVideoInfo
-      const authorUrl = videoInfo.author_url.split('/').at(-1)
+        )
+        const videoInfo = await rawResult.json() as OEmbedVideoInfo
+        const authorUrl = videoInfo.author_url.split('/').at(-1)
 
-      if(!categories.includes(categoryId)) {
-        categories.push(categoryId)
-      }
+        if (!categories.includes(categoryId)) {
+          categories.push(categoryId)
+        }
 
-      return {
-        videoId,
-        authorUrl,
-        categoryId,
-        title: videoInfo.title,
-        authorName: videoInfo.author_name,
-      }
-    })
+        return {
+          videoId,
+          authorUrl,
+          categoryId,
+          title: videoInfo.title,
+          authorName: videoInfo.author_name,
+        }
+      })
     const result = await Promise.all(promises)
 
-    return Response.json({ok: true, data: result, categories})
+    return Response.json({
+      ok: true,
+      data: result,
+      ...(categoryIdParam ? {} : { categories })
+    })
   }
   catch (error) {
     console.error(error)
@@ -102,7 +109,7 @@ export async function POST(request: Request) {
       {status: 400}
     )
   }
-  videosData.set(data.videoId, { id: data.videoId, categoryId: data.categoryId })
+  videosData.set(data.videoId, {id: data.videoId, categoryId: data.categoryId})
 
   return Response.json({ok: true})
 }

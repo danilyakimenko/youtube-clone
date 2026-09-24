@@ -8,7 +8,7 @@ import VIDEO_CATEGORIES from '@/shared/constants/videoCategories'
 
 type HomeScreenProps = {
   data: GetAllVideosDto['data']
-  categories: typeof VIDEO_CATEGORIES
+  categories?: typeof VIDEO_CATEGORIES
 }
 
 const HomeScreen = ({data, categories}: HomeScreenProps) => {
@@ -18,7 +18,7 @@ const HomeScreen = ({data, categories}: HomeScreenProps) => {
 
   return (
     <div className={styles.container}>
-      {categories.length > 0 && (
+      {categories && categories.length > 0 && (
         <ul className={styles.categoriesList}>
           {categories.map((category) => (
             <li key={category.id}>
