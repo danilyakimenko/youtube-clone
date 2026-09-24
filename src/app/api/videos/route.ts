@@ -14,25 +14,29 @@ type OEmbedVideoInfo = {
   html: string
 }
 
-const videosData = new Set<string>([
-  'qULWrtxYuxk',
-  'KO-G5DVNlw4',
-  'tvnpQ0dORI8',
-  'yNMi0CBJpKA',
-  'tOMc0XCmuYQ',
-  'Vv94is3BZ3I',
-  'e1pZIfretEs',
-  '-lec--FlSJ4',
-  'NnKVD-DZmYQ',
-  'mC4GQTy5sqk',
-  'iv3U78TaK8w',
-  'ifmWdG3vngA',
+type VideoDataContent = {
+  id: string
+  categoryId: string
+}
+
+const videosData = new Map<string, VideoDataContent>([
+  ['qULWrtxYuxk', { id: 'qULWrtxYuxk', categoryId: 'games'}],
+  ['KO-G5DVNlw4', { id: 'KO-G5DVNlw4', categoryId: 'news'}],
+  ['tvnpQ0dORI8', { id: 'tvnpQ0dORI8', categoryId: 'news'}],
+  ['yNMi0CBJpKA', { id: 'yNMi0CBJpKA', categoryId: 'news'}],
+  ['tOMc0XCmuYQ', { id: 'tOMc0XCmuYQ', categoryId: 'music'}],
+  ['Vv94is3BZ3I', { id: 'Vv94is3BZ3I', categoryId: 'games'}],
+  ['e1pZIfretEs', { id: 'e1pZIfretEs', categoryId: 'music'}],
+  ['-lec--FlSJ4', { id: '-lec--FlSJ4', categoryId: 'sport'}],
+  ['NnKVD-DZmYQ', { id: 'NnKVD-DZmYQ', categoryId: 'games'}],
+  ['mC4GQTy5sqk', { id: 'mC4GQTy5sqk', categoryId: 'sport'}],
+  ['iv3U78TaK8w', { id: 'iv3U78TaK8w', categoryId: 'music'}],
+  ['ifmWdG3vngA', { id: 'ifmWdG3vngA', categoryId: 'news'}],
 ])
 
 export async function GET(request: Request) {
   const urlObject = new URL(request.url)
   const videoId = urlObject.searchParams.get('videoId')
-  console.log(videoId)
 
   if (videoId) {
     try {
@@ -57,23 +61,31 @@ export async function GET(request: Request) {
   }
 
   try {
-    const promises = [...videosData].map(async (videoId) => {
+    const categories: string[] = []
+    const promises = [...videosData].map(async (videoData) => {
+      const videoId = videoData[1].id
+      const categoryId = videoData[1].categoryId
       const rawResult = await fetch(`
         https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
       const authorUrl = videoInfo.author_url.split('/').at(-1)
 
+      if(!categories.includes(categoryId)) {
+        categories.push(categoryId)
+      }
+
       return {
         videoId,
         authorUrl,
+        categoryId,
         title: videoInfo.title,
         authorName: videoInfo.author_name,
       }
     })
     const result = await Promise.all(promises)
 
-    return Response.json({ok: true, data: result})
+    return Response.json({ok: true, data: result, categories})
   }
   catch (error) {
     console.error(error)
@@ -90,7 +102,7 @@ export async function POST(request: Request) {
       {status: 400}
     )
   }
-  videosData.add(data.videoId)
+  videosData.set(data.videoId, { id: data.videoId, categoryId: data.categoryId })
 
   return Response.json({ok: true})
 }

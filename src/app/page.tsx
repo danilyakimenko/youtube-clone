@@ -8,6 +8,8 @@ export default async function HomePage() {
     })
     const response = await dataFromServer.json() as GetAllVideosDto
 
+    console.log('response', response)
+
     return <HomeScreen data={response.data} />
   }
   catch (error) {
