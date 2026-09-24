@@ -1,51 +1,20 @@
 'use client'
 
-import styles from './VideoScreen.module.scss'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
-import { GetOneVideoDto } from '@/shared/types/typesFromBackend'
+import { VideoDto } from '@/shared/types/typesFromBackend'
+import styles from './VideoScreen.module.scss'
 
 type VideoScreenProps = {
-  videoId: string
+  data: VideoDto
 }
 
-const VideoScreen = (props: VideoScreenProps) => {
-  const {
-    videoId,
-  } = props
-
-  const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState<GetOneVideoDto['data'] | null>(null)
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const dataFromServer = await fetch(`/api/videos?videoId=${videoId}`)
-        const response = await dataFromServer.json() as GetOneVideoDto
-
-        if (response.data) {
-          setData(response.data)
-        }
-
-      } finally {
-        setIsLoading(false)
-      }
-    })()
-  }, [videoId])
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
-
-  if (!data) return null
-
-
+const VideoScreen = ({ data }: VideoScreenProps) => {
   return (
     <div className={styles.container}>
       <iframe
         className={styles.iframe}
-        src={`https://www.youtube.com/embed/${videoId}`}
+        src={`https://www.youtube.com/embed/${data.videoId}?autoplay=1`}
         width={1200}
         height={600}
         title="YouTube video player"
