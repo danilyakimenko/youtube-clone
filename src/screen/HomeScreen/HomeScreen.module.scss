@@ -1,4 +1,19 @@
 .container {
+  padding-bottom: 32px;
+}
+
+.categoriesList {
+  display: flex;
+  gap: 32px;
+}
+
+.categoryLink {
+  padding: 10px 20px;
+  background-color: var(--color-accent);
+  border-radius: var(--border-radius-m);
+}
+
+.videoGrid {
   --columns: 4;
 
   display: grid;
