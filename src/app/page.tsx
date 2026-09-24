@@ -3,7 +3,7 @@ import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 
 export default async function HomePage() {
   try {
-    const dataFromServer = await fetch('http://localhost:3000/api/videos', {
+    const dataFromServer = await fetch(`${process.env.SERVER_API_URL}/api/videos`, {
       method: 'GET',
     })
     const response = await dataFromServer.json() as GetAllVideosDto
