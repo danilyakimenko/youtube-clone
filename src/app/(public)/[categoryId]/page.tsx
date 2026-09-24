@@ -3,12 +3,26 @@ import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import HomeScreen from '@/screen/HomeScreen'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 
-export const metadata: Metadata = {
-  title: "Videos in category: ...",
-};
-
 type CategoryPageProps = {
   params: Promise<{ categoryId: string }>
+}
+
+export async function generateMetadata(
+  { params }: CategoryPageProps,
+): Promise<Metadata> {
+  const data = await params
+  const categoryId = data.categoryId
+  const findCategory = VIDEO_CATEGORIES.find((category) => category.id === categoryId)
+
+  if (!findCategory) {
+    return {
+      title: 'Videos in an unknown category'
+    }
+  }
+
+  return {
+    title: `Videos in category - ${findCategory.title}`,
+  }
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
