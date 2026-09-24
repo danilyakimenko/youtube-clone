@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import HomeScreen from '@/screen/HomeScreen'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
+import { notFound } from 'next/navigation'
 
 type CategoryPageProps = {
   params: Promise<{ categoryId: string }>
@@ -14,11 +15,7 @@ export async function generateMetadata(
   const categoryId = data.categoryId
   const findCategory = VIDEO_CATEGORIES.find((category) => category.id === categoryId)
 
-  if (!findCategory) {
-    return {
-      title: 'Videos in an unknown category'
-    }
-  }
+  if (!findCategory) return {}
 
   return {
     title: `Videos in category - ${findCategory.title}`,
@@ -28,6 +25,9 @@ export async function generateMetadata(
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const data = await params
   const categoryId = data.categoryId
+  const findCategory = VIDEO_CATEGORIES.find((category) => category.id === categoryId)
+
+  if (!findCategory) return notFound()
 
   try {
     const dataFromServer = await fetch(`${process.env.SERVER_API_URL}/api/videos?categoryId=${categoryId}`)
