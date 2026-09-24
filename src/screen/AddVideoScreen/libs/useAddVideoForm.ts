@@ -28,11 +28,14 @@ const schema = z.object({
           input: url,
         })
       }
-    })
+    }),
+  videoCategory: z
+    .string()
 })
 
 type Inputs = {
   videoUrl: string
+  videoCategory: string
 }
 
 export const useAddVideoForm = () => {
@@ -56,7 +59,7 @@ export const useAddVideoForm = () => {
 
     await fetch('/api/videos', {
       method: 'POST',
-      body: JSON.stringify({ videoId }),
+      body: JSON.stringify({ videoId, categoryId: data.videoCategory }),
     })
   }
 

@@ -3,6 +3,25 @@
 import { useAddVideoForm } from '@/screen/AddVideoScreen/libs/useAddVideoForm'
 import styles from './AddVideoScreen.module.scss'
 
+const CATEGORIES = [
+  {
+    title: 'News',
+    id: 'news',
+  },
+  {
+    title: 'Games',
+    id: 'games',
+  },
+  {
+    title: 'Music',
+    id: 'music',
+  },
+  {
+    title: 'Sport',
+    id: 'sport',
+  },
+]
+
 const AddVideoScreen = () => {
   const {
     register,
@@ -20,6 +39,16 @@ const AddVideoScreen = () => {
         className={styles.form}
         onSubmit={onSubmit}
       >
+        <select {...register(`videoCategory`)}>
+          {CATEGORIES.map(({ title, id }) => (
+            <option
+              value={id}
+              key={id}
+            >
+              {title}
+            </option>
+          ))}
+        </select>
         <label className={styles.label}>
           <input
             className={styles.input}
