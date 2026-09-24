@@ -28,6 +28,7 @@ const HomeScreen = ({ data }: HomeScreenProps) => {
               width={480}
               height={360}
               alt="Video from YouTube"
+              unoptimized
             />
             <div className={styles.wrapper}>
               <Link
