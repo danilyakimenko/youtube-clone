@@ -1,7 +1,7 @@
 'use client'
 
 import { useAddVideoForm } from '@/screen/AddVideoScreen/libs/useAddVideoForm'
-import VIDEO_CATEGORIES from '@/shared/constants/videoCategories'
+import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 import styles from './AddVideoScreen.module.scss'
 
 const AddVideoScreen = () => {
