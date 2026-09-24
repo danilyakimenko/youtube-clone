@@ -1,32 +1,18 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import styles from './HomeScreen.module.scss'
 
-const HomeScreen = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState<GetAllVideosDto['data'] | null>(null)
-  useEffect(() => {
-    (async () => {
-      try {
-        const dataFromServer = await fetch('/api/videos', {
-          method: 'GET',
-        })
-        const response = await dataFromServer.json() as GetAllVideosDto
+type HomeScreenProps = {
+  data: GetAllVideosDto['data']
+}
 
-        setData(response.data)
-      } finally {
-        setIsLoading(false)
-      }
-    })()
-  }, [])
-
-  if (isLoading) {
-    return <div>Loading...</div>
-  }
+const HomeScreen = ({ data }: HomeScreenProps) => {
+  // if (isLoading) {
+  //   return <div>Loading...</div>
+  // }
 
   return (
     <div className={styles.container}>
