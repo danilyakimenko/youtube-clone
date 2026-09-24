@@ -15,7 +15,8 @@ export async function generateMetadata(
   const categoryId = data.categoryId
   const findCategory = VIDEO_CATEGORIES.find((category) => category.id === categoryId)
 
-  if (!findCategory) return {}
+  if (!findCategory)
+    return { title: '404 Not Found' }
 
   return {
     title: `Videos in category - ${findCategory.title}`,

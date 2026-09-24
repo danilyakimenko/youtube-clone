@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: "Profile: ...",
-};
+}
 
 type ProfilePageProps = {
   params: Promise<{ profileId: string }>
