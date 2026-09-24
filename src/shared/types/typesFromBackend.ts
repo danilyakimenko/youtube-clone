@@ -5,7 +5,12 @@ export type VideoDto = {
   authorUrl: string
 }
 
-export type AllVideosDto = {
+export type GetOneVideoDto = {
+  ok: boolean
+  data: VideoDto | null
+}
+
+export type GetAllVideosDto = {
   ok: boolean
   data: VideoDto[]
 }

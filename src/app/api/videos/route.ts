@@ -29,25 +29,55 @@ const videosData = new Set<string>([
   'ifmWdG3vngA',
 ])
 
-export async function GET() {
+export async function GET(request: Request) {
+  const urlObject = new URL(request.url)
+  const videoId = urlObject.searchParams.get('videoId')
+  console.log(videoId)
+
+  if (videoId) {
+    try {
+      const rawResult = await fetch(`
+        https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+      )
+      const videoInfo = await rawResult.json() as OEmbedVideoInfo
+      const authorUrl = videoInfo.author_url.split('/').at(-1)
+
+      const result = {
+        videoId,
+        authorUrl,
+        title: videoInfo.title,
+        authorName: videoInfo.author_name,
+      }
+
+      return Response.json({ok: true, data: result})
+    } catch (error) {
+      console.error(error)
+      return Response.json({ok: false, data: null}, {status: 500})
+    }
+  }
+
   try {
     const promises = [...videosData].map(async (videoId) => {
       const rawResult = await fetch(`
-      https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+        https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
       )
       const videoInfo = await rawResult.json() as OEmbedVideoInfo
+      const authorUrl = videoInfo.author_url.split('/').at(-1)
 
       return {
         videoId,
+        authorUrl,
         title: videoInfo.title,
         authorName: videoInfo.author_name,
-        authorUrl: videoInfo.author_url,
       }
     })
     const result = await Promise.all(promises)
-    return Response.json({ ok: true, data: result})
-  } catch (error) {
-    return Response.json({ ok: false, data: [] }, { status: 500 })
+
+    return Response.json({ok: true, data: result})
+  }
+  catch (error) {
+    console.error(error)
+    return Response.json({ok: false, data: []}, {status: 500})
   }
 }
 

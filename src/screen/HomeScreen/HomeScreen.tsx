@@ -3,19 +3,19 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { AllVideosDto } from '@/shared/types/typesFromBackend'
+import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import styles from './HomeScreen.module.scss'
 
 const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState<AllVideosDto['data'] | null>(null)
+  const [data, setData] = useState<GetAllVideosDto['data'] | null>(null)
   useEffect(() => {
     (async () => {
       try {
         const dataFromServer = await fetch('/api/videos', {
           method: 'GET',
         })
-        const response = await dataFromServer.json() as AllVideosDto
+        const response = await dataFromServer.json() as GetAllVideosDto
 
         setData(response.data)
       } finally {
@@ -25,9 +25,7 @@ const HomeScreen = () => {
   }, [])
 
   if (isLoading) {
-    return (
-      <div>Loading...</div>
-    )
+    return <div>Loading...</div>
   }
 
   return (
