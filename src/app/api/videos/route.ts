@@ -15,27 +15,29 @@ type OEmbedVideoInfo = {
 }
 
 type VideoDataContent = {
+  userId: string
   id: string
   categoryId: string
 }
 
 const videosData = new Map<string, VideoDataContent>([
-  ['qULWrtxYuxk', {id: 'qULWrtxYuxk', categoryId: 'games'}],
-  ['KO-G5DVNlw4', {id: 'KO-G5DVNlw4', categoryId: 'news'}],
-  ['tvnpQ0dORI8', {id: 'tvnpQ0dORI8', categoryId: 'news'}],
-  ['yNMi0CBJpKA', {id: 'yNMi0CBJpKA', categoryId: 'news'}],
-  ['tOMc0XCmuYQ', {id: 'tOMc0XCmuYQ', categoryId: 'music'}],
-  ['Vv94is3BZ3I', {id: 'Vv94is3BZ3I', categoryId: 'games'}],
-  ['e1pZIfretEs', {id: 'e1pZIfretEs', categoryId: 'music'}],
-  ['-lec--FlSJ4', {id: '-lec--FlSJ4', categoryId: 'sport'}],
-  ['NnKVD-DZmYQ', {id: 'NnKVD-DZmYQ', categoryId: 'games'}],
-  ['mC4GQTy5sqk', {id: 'mC4GQTy5sqk', categoryId: 'sport'}],
-  ['iv3U78TaK8w', {id: 'iv3U78TaK8w', categoryId: 'music'}],
-  ['ifmWdG3vngA', {id: 'ifmWdG3vngA', categoryId: 'news'}],
+  ['qULWrtxYuxk', { userId: '0', id: 'qULWrtxYuxk', categoryId: 'games'}],
+  ['KO-G5DVNlw4', { userId: '0', id: 'KO-G5DVNlw4', categoryId: 'news'}],
+  ['tvnpQ0dORI8', { userId: '0', id: 'tvnpQ0dORI8', categoryId: 'news'}],
+  ['yNMi0CBJpKA', { userId: '0', id: 'yNMi0CBJpKA', categoryId: 'news'}],
+  ['tOMc0XCmuYQ', { userId: '0', id: 'tOMc0XCmuYQ', categoryId: 'music'}],
+  ['Vv94is3BZ3I', { userId: '0', id: 'Vv94is3BZ3I', categoryId: 'games'}],
+  ['e1pZIfretEs', { userId: '0', id: 'e1pZIfretEs', categoryId: 'music'}],
+  ['-lec--FlSJ4', { userId: '0', id: '-lec--FlSJ4', categoryId: 'sport'}],
+  ['NnKVD-DZmYQ', { userId: '0', id: 'NnKVD-DZmYQ', categoryId: 'games'}],
+  ['mC4GQTy5sqk', { userId: '0', id: 'mC4GQTy5sqk', categoryId: 'sport'}],
+  ['iv3U78TaK8w', { userId: '0', id: 'iv3U78TaK8w', categoryId: 'music'}],
+  ['ifmWdG3vngA', { userId: '0', id: 'ifmWdG3vngA', categoryId: 'news'}],
 ])
 
 export async function GET(request: Request) {
   const urlObject = new URL(request.url)
+  const userIdParam = urlObject.searchParams.get('userId')
   const videoIdParam = urlObject.searchParams.get('videoId')
   const categoryIdParam = urlObject.searchParams.get('categoryId')
 
@@ -65,6 +67,7 @@ export async function GET(request: Request) {
     const categories = Array.from(new Set([...videosData].map((videoData) => videoData[1].categoryId)))
     const promises = [...videosData]
       .filter((videoData) => categoryIdParam ? videoData[1].categoryId === categoryIdParam : true)
+      .filter((videoData) => userIdParam ? videoData[1].userId === userIdParam : true)
       .map(async (videoData) => {
         const videoId = videoData[1].id
         const categoryId = videoData[1].categoryId
@@ -105,7 +108,11 @@ export async function POST(request: Request) {
       {status: 400}
     )
   }
-  videosData.set(data.videoId, {id: data.videoId, categoryId: data.categoryId})
+  videosData.set(data.videoId, {
+    userId: data.userId,
+    id: data.videoId,
+    categoryId: data.categoryId
+  })
 
   return Response.json({ok: true})
 }

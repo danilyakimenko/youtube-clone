@@ -9,19 +9,16 @@ const linkItems = [
     href: '/',
     linkIcon: homeIcon,
   },
-
   {
     title: 'Add video',
     href: '/editor/addVideo',
     linkIcon: AddVideoIcon,
   },
-
   {
     title: 'Profile',
     href: '/profile/123',
     linkIcon: ProfileIcon,
   },
-
   {
     title: 'Your videos',
     href: '/myVideos',
