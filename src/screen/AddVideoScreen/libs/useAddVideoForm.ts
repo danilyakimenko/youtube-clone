@@ -44,6 +44,7 @@ export const useAddVideoForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: {errors},
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -61,6 +62,7 @@ export const useAddVideoForm = () => {
       method: 'POST',
       body: JSON.stringify({ userId: '12345', videoId, categoryId: data.videoCategory }),
     })
+    reset()
   }
 
   return {

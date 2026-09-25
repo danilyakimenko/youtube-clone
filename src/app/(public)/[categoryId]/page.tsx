@@ -41,7 +41,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     const finalCategories = VIDEO_CATEGORIES
       .filter(({ id }) => response.categories.includes(id))
 
-    return <HomeScreen data={response.data} categories={finalCategories} />
+    return (
+      <HomeScreen
+        data={response.data}
+        categoryId={categoryId}
+        categories={finalCategories}
+      />
+    )
   }
   catch (error) {
     console.error(error)

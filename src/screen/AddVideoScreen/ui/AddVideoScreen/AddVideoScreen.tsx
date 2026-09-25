@@ -21,7 +21,10 @@ const AddVideoScreen = () => {
         className={styles.form}
         onSubmit={onSubmit}
       >
-        <select {...register(`videoCategory`)}>
+        <select
+          className={styles.select}
+          {...register(`videoCategory`)}
+        >
           {VIDEO_CATEGORIES.map(({ title, id }) => (
             <option
               value={id}

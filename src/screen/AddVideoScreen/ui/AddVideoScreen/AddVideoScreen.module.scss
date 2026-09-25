@@ -12,6 +12,19 @@
   width: 600px;
 }
 
+.select {
+  width: 150px;
+  height: 50px;
+  border: var(--border);
+  border-radius: var(--border-radius-m);
+  padding: 8px 12px;
+  transition-duration: var(--transition-duration);
+
+  @include hover {
+    border-color: var(--color-white);
+  }
+}
+
 .label {
   position: relative;
   display: grid;
