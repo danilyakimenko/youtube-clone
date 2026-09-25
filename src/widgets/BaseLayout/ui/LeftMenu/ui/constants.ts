@@ -3,7 +3,6 @@ import AddVideoIcon from '@/shared/assets/icons/arrow-top.svg'
 import ProfileIcon from '@/shared/assets/icons/profile.svg'
 import YourVideosIcon from '@/shared/assets/icons/your-videos.svg'
 
-
 const linkItems = [
   {
     title: 'Home',
@@ -25,7 +24,7 @@ const linkItems = [
 
   {
     title: 'Your videos',
-    href: '/',
+    href: '/myVideos',
     linkIcon: YourVideosIcon,
   },
 ]
