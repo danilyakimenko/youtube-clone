@@ -1,18 +1,10 @@
-import Link from 'next/link'
+import { LoginScreen } from '@/screen/LoginScreen'
 
 export default async function LoginPage() {
   try {
 
     return (
-      <div>
-        Login Page
-        <Link
-          href="/auth/register"
-          title="Create account"
-        >
-          Create account
-        </Link>
-      </div>
+      <LoginScreen />
     )
   }
   catch (error) {
