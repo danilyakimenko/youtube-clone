@@ -14,13 +14,15 @@ type OEmbedVideoInfo = {
   html: string
 }
 
+type VideoId = string
+
 type VideoDataContent = {
   userId: string
-  id: string
+  id: VideoId
   categoryId: string
 }
 
-const videosData = new Map<string, VideoDataContent>([
+const videosData = new Map<VideoId, VideoDataContent>([
   ['qULWrtxYuxk', { userId: '0', id: 'qULWrtxYuxk', categoryId: 'games'}],
   ['KO-G5DVNlw4', { userId: '0', id: 'KO-G5DVNlw4', categoryId: 'news'}],
   ['tvnpQ0dORI8', { userId: '0', id: 'tvnpQ0dORI8', categoryId: 'news'}],
