@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import { useRouter } from 'next/navigation'
 import styles from './LoginScreen.module.scss'
 
 const schema = z.object({
@@ -17,6 +18,7 @@ type Inputs = {
 }
 
 export const LoginScreen = () => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -25,8 +27,23 @@ export const LoginScreen = () => {
     resolver: zodResolver(schema),
   })
 
-  const onSubmit = handleSubmit((data: Inputs) => {
-    console.log('data', data)
+  const onSubmit = handleSubmit(async (data: Inputs) => {
+    const {
+      nickname,
+      password,
+    } = data
+
+    try {
+      await fetch('/api/users/login', {
+        method: 'POST',
+        body: JSON.stringify({ nickname, password }),
+      })
+
+      router.replace('/')
+    }
+    catch (error) {
+      console.error(error)
+    }
   })
   const nicknameErrorMessage = errors.nickname?.message
   const passwordErrorMessage = errors.password?.message

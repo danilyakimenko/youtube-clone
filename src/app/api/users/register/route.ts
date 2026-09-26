@@ -1,17 +1,9 @@
 import bcrypt from 'bcrypt'
-
-type UserId = string
-
-type UserContent = {
-  id: UserId
-  nickname: string
-  password: string
-}
-
-const users = new Map<UserId, UserContent>()
+import { users } from '../db'
 
 export async function POST(request: Request) {
   const data = await request.json()
+  // const user =
 
   if (users.has(data.nickname)) {
     return Response.json({ok: false, message: "A user with this nickname has already been registered"}, {status: 400})

@@ -43,7 +43,7 @@ export const RegisterScreen = () => {
     } = data
 
     try {
-      await fetch('/api/users', {
+      await fetch('/api/users/register', {
         method: 'POST',
         body: JSON.stringify({ nickname, password }),
       })
@@ -95,8 +95,8 @@ export const RegisterScreen = () => {
           )}
         </label>
         <Link
-          href="/auth/register"
-          title="Create account"
+          href="/auth/login"
+          title="Sign in"
         >
           Sign in
         </Link>
