@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import './styles'
-import BaseLayout from '@/widgets/BaseLayout'
 import React from 'react'
 import Header from '@/widgets/BaseLayout/ui/Header'
 
@@ -18,9 +17,7 @@ const RootLayout = ({
     <html lang="en">
     <body>
     <Header profileId="123" />
-    <BaseLayout>
       {children}
-    </BaseLayout>
     </body>
     </html>
   );
