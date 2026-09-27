@@ -34,12 +34,14 @@ export const LoginScreen = () => {
     } = data
 
     try {
-      await fetch('/api/users/login', {
+      const response = await fetch('/api/users/login', {
         method: 'POST',
         body: JSON.stringify({ nickname, password }),
       })
 
-      router.replace('/')
+      if (response.ok) {
+        router.replace('/')
+      }
     }
     catch (error) {
       console.error(error)

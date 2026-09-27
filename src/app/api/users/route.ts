@@ -10,15 +10,23 @@ export async function GET() {
     return Response.json({ok: false, message: "The token is outdated"}, {status: 400})
   }
 
-  const userInfo = jsonwebtoken.verify(token.value, '1234') as UserInfoFromToken
-  const user = users.get(userInfo.nickname)
+  try {
+    console.log('TOKEN:', token.value)
+    const userInfo = jsonwebtoken.verify(token.value, '1234') as UserInfoFromToken
+    const user = users.get(userInfo.nickname)
+    if (!user) {
+      return Response.json({ok: false, message: "The user was not found"}, {status: 500})
+    }
+    const { id, nickname } = user
 
-  if (!user) {
-    return Response.json({ok: false, message: "The user was not found"}, {status: 500})
+    return Response.json({ ok: true, user: { id, nickname } })
   }
+  catch(error) {
+    console.error(error)
 
-  const { id, nickname } = user
-
-
-  return Response.json({ ok: true, user: { id, nickname } })
+    return Response.json(
+      { ok: false, message: 'Invalid or expired token' },
+      { status: 401 }
+    )
+  }
 }

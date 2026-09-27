@@ -1,14 +1,21 @@
 import React from 'react'
 import BaseLayout from '@/widgets/BaseLayout'
+import { AuthUserDto } from '@/shared/types/typesFromBackend'
+import { withUserInfo } from '@/shared/hoc/withUserInfo'
 
-export default function PrivateLayout({
+function PrivateLayout({
   children,
+  user,
 }: {
   children: React.ReactNode
+  user?: AuthUserDto
 }) {
+  console.log('public layout user', user)
   return (
-    <BaseLayout>
+    <BaseLayout userId={user?.id}>
       {children}
-    </BaseLayout>
-  )
+    </BaseLayout>)
+
 }
+
+export default withUserInfo(PrivateLayout)

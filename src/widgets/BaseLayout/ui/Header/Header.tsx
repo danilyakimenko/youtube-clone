@@ -1,37 +1,42 @@
-import styles from './Header.module.scss'
-
 import Link from 'next/link'
 import Logo from '@/shared/ui/Logo'
+import styles from './Header.module.scss'
 
 type HeaderProps = {
-  profileId: string
+  userId?: string
 }
 
-const Header = ({ profileId }: HeaderProps) => {
+const Header = ({ userId }: HeaderProps) => {
+  console.log('header userId', userId)
   return (
     <header className={`${styles.header} container`}>
       <Logo />
       <div className={styles.wrapper}>
-        <Link
-          className={styles.addVideoLink}
-          href="/auth/login"
-          title="Sign in"
-        >
-          Sign in
-        </Link>
-        {/*<Link
-          className={styles.addVideoLink}
-          href="/editor/addVideo"
-          title="Create Video"
-        >
-          Create
-        </Link>
-        <Link
-          className={styles.profileLink}
-          href={`/profile/${profileId}`}
-          aria-label="Go to your profile"
-          title="Profile"
-        />*/}
+        {userId ? (
+          <>
+            <Link
+              className={styles.addVideoLink}
+              href="/editor/addVideo"
+              title="Create Video"
+            >
+              Create
+            </Link>
+            <Link
+              className={styles.profileLink}
+              href={`/profile/${userId}`}
+              aria-label="Go to your profile"
+              title="Profile"
+            />
+          </>
+        ) : (
+          <Link
+            className={styles.addVideoLink}
+            href="/auth/login"
+            title="Sign in"
+          >
+            Sign in
+          </Link>
+        )}
       </div>
     </header>
   )
