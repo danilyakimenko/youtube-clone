@@ -1,13 +1,10 @@
 import HomeScreen from '@/screen/HomeScreen'
-import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
+import { getVideosData } from '@/app/api/videos/getVideosData'
 
 export default async function HomePage() {
   try {
-    const dataFromServer = await fetch(`${process.env.SERVER_API_URL}/api/videos`, {
-      method: 'GET',
-    })
-    const response = await dataFromServer.json() as GetAllVideosDto
+    const response = await getVideosData()
     const finalCategories = VIDEO_CATEGORIES
       .filter(({ id }) => response.categories.includes(id))
 

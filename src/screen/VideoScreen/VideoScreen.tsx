@@ -2,11 +2,11 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { VideoDto } from '@/shared/types/typesFromBackend'
+import { GetOneVideoDto } from '@/shared/types/typesFromBackend'
 import styles from './VideoScreen.module.scss'
 
 type VideoScreenProps = {
-  data: VideoDto
+  data: GetOneVideoDto['data']
 }
 
 const VideoScreen = ({ data }: VideoScreenProps) => {

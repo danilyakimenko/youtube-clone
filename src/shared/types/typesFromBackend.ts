@@ -8,7 +8,7 @@ export type VideoDto = {
 
 export type GetOneVideoDto = {
   ok: boolean
-  data: VideoDto | null
+  data: Omit<VideoDto, 'categoryId'> | null
 }
 
 export type GetAllVideosDto = {
