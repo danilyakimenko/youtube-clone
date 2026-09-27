@@ -30,25 +30,22 @@ export const RegisterScreen = () => {
     resolver: zodResolver(schema),
   })
   const onSubmit = handleSubmit(async (data: Inputs) => {
-    console.log('data', data)
-
     if (data.password !== data.passwordRepeat) {
       setError("passwordRepeat", { type: "custom", message: "Passwords don't match" })
       return
     }
 
-    const {
-      nickname,
-      password,
-    } = data
+    const { nickname, password } = data
 
     try {
-      await fetch('/api/users/register', {
+      const response = await fetch('/api/users/register', {
         method: 'POST',
         body: JSON.stringify({ nickname, password }),
       })
 
-      router.replace('/')
+      if (response.ok) {
+        router.replace('/')
+      }
     }
     catch (error) {
       console.error(error)

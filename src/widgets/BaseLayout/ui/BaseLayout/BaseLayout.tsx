@@ -14,7 +14,7 @@ const BaseLayout = ({ userId, children }: BaseLayoutProps) => {
   return (
     <main className={`${styles.main} container`}>
       <Header userId={userId} />
-      <LeftMenu />
+      <LeftMenu userId={userId} />
       {children}
     </main>
   )

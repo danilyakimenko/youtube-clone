@@ -28,10 +28,7 @@ export const LoginScreen = () => {
   })
 
   const onSubmit = handleSubmit(async (data: Inputs) => {
-    const {
-      nickname,
-      password,
-    } = data
+    const { nickname, password } = data
 
     try {
       const response = await fetch('/api/users/login', {
