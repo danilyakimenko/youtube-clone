@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Logo from '@/shared/ui/Logo'
 import styles from './Header.module.scss'
+import signInIcon from '@/shared/assets/icons/sign-in.svg'
 
 type HeaderProps = {
   userId?: string
@@ -30,10 +31,17 @@ const Header = ({ userId }: HeaderProps) => {
           </>
         ) : (
           <Link
-            className={styles.addVideoLink}
+            className={styles.signInLink}
             href="/auth/login"
             title="Sign in"
           >
+            <img
+              className={styles.icon}
+              src={signInIcon.src}
+              width={24}
+              height={24}
+              alt=""
+            />
             Sign in
           </Link>
         )}

@@ -22,18 +22,18 @@ export const LoginScreen = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
 
   const onSubmit = handleSubmit(async (data: Inputs) => {
-    const { nickname, password } = data
+    const {nickname, password} = data
 
     try {
       const response = await fetch('/api/users/login', {
         method: 'POST',
-        body: JSON.stringify({ nickname, password }),
+        body: JSON.stringify({nickname, password}),
       })
 
       if (response.ok) {
@@ -51,8 +51,11 @@ export const LoginScreen = () => {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={onSubmit}>
-        <label>
+      <form
+        className={styles.form}
+        onSubmit={onSubmit}
+      >
+        <label className={styles.label}>
           <input
             type="text"
             placeholder="Nickname"
@@ -62,7 +65,7 @@ export const LoginScreen = () => {
             <p className={styles.error}>{nicknameErrorMessage}</p>
           )}
         </label>
-        <label>
+        <label className={styles.label}>
           <input
             type="password"
             placeholder="Password"

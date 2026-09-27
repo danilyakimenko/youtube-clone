@@ -1,3 +1,21 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  background-color: #1E1F20;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  width: 80%;
+  padding: 36px;
+  border-radius: var(--border-radius-l);
+  background-color: var(--color-black);
+}
+
 .label {
   position: relative;
   display: grid;

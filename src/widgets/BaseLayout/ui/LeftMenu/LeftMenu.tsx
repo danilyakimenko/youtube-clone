@@ -1,10 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import linkItems from './ui/constants'
-import styles from './LeftMenu.module.scss'
 import { useRouter } from 'next/navigation'
+import signOutIcon from '@/shared/assets/icons/sign-out.svg'
+import styles from './LeftMenu.module.scss'
 
 type LeftMenuProps = {
   userId?: string
@@ -35,9 +35,9 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
                   className={styles.link}
                   href={href}
                 >
-                  <Image
+                  <img
                     className={styles.icon}
-                    src={linkIcon}
+                    src={linkIcon.src}
                     width={24}
                     height={24}
                     alt=""
@@ -48,15 +48,25 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
               </li>
             )
           })}
-          <li>
-            <button
-              type="button"
-              className={styles.button}
-              onClick={onLogOut}
-            >
-              Sign Out
-            </button>
-          </li>
+          {userId && (
+            <li className={styles.item}>
+              <button
+                className={styles.link}
+                type="button"
+                onClick={onLogOut}
+              >
+                <img
+                  className={styles.icon}
+                  src={signOutIcon}
+                  width={24}
+                  height={24}
+                  alt=""
+                  aria-hidden={true}
+                />
+                Sign Out
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     </aside>

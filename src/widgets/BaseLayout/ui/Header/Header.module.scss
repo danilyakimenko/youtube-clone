@@ -69,3 +69,24 @@
   background-color: rgb(255 255 255 / 0.2);
 }
 }
+
+.signInLink {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  padding: 8px 20px;
+  border-radius: var(--border-radius-l);
+  background-color: rgb(255 255 255 / 0.1);
+  transition-duration: var(--transition-duration);
+
+  @include hover {
+    background-color: rgb(255 255 255 / 0.2);
+  }
+}
+
+.icon {
+  @include square(24px);
+
+  filter: invert(1);
+}
