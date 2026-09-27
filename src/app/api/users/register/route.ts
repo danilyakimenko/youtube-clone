@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt'
 import { users } from '../db'
 import jsonwebtoken from 'jsonwebtoken'
 import { cookies } from 'next/headers'
+import { env } from '@/shared/libs'
 
 export async function POST(request: Request) {
   const data = await request.json()
@@ -15,11 +16,11 @@ export async function POST(request: Request) {
 
   users.set(data.nickname, { id, nickname: data.nickname, password: hashedPassword })
 
-  const jwt = jsonwebtoken.sign({ id, nickname: data.nickname }, '1234')
+  const jwt = jsonwebtoken.sign({ id, nickname: data.nickname }, env.JWT_SECRET, { expiresIn: '1h' })
   const cookiesStore = await cookies()
 
   cookiesStore.set('x-auth-token', jwt, {
-    maxAge: 1000,
+    maxAge: 3600,
     httpOnly: true,
     secure: true,
   })

@@ -1,6 +1,7 @@
 import jsonwebtoken from 'jsonwebtoken'
 import { cookies } from 'next/headers'
 import { UserInfoFromToken, users } from './db'
+import { env } from '@/shared/libs'
 
 export async function GET() {
   const cookiesStore = await cookies()
@@ -11,22 +12,21 @@ export async function GET() {
   }
 
   try {
-    console.log('TOKEN:', token.value)
-    const userInfo = jsonwebtoken.verify(token.value, '1234') as UserInfoFromToken
+    const userInfo = jsonwebtoken.verify(token.value, env.JWT_SECRET) as UserInfoFromToken
     const user = users.get(userInfo.nickname)
+
     if (!user) {
       return Response.json({ok: false, message: "The user was not found"}, {status: 500})
     }
+
     const { id, nickname } = user
 
     return Response.json({ ok: true, user: { id, nickname } })
   }
-  catch(error) {
-    console.error(error)
-
+  catch {
     return Response.json(
       { ok: false, message: 'Invalid or expired token' },
-      { status: 401 }
+      { status: 400 }
     )
   }
 }
