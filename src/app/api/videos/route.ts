@@ -1,3 +1,5 @@
+import { videos } from '@/app/api/db'
+
 type OEmbedVideoInfo = {
   title: string
   author_name: string
@@ -13,29 +15,6 @@ type OEmbedVideoInfo = {
   thumbnail_url: string
   html: string
 }
-
-type VideoId = string
-
-type VideoDataContent = {
-  userId: string
-  id: VideoId
-  categoryId: string
-}
-
-const videosData = new Map<VideoId, VideoDataContent>([
-  ['qULWrtxYuxk', { userId: '0', id: 'qULWrtxYuxk', categoryId: 'games'}],
-  ['KO-G5DVNlw4', { userId: '0', id: 'KO-G5DVNlw4', categoryId: 'news'}],
-  ['tvnpQ0dORI8', { userId: '0', id: 'tvnpQ0dORI8', categoryId: 'news'}],
-  ['yNMi0CBJpKA', { userId: '0', id: 'yNMi0CBJpKA', categoryId: 'news'}],
-  ['tOMc0XCmuYQ', { userId: '0', id: 'tOMc0XCmuYQ', categoryId: 'music'}],
-  ['Vv94is3BZ3I', { userId: '0', id: 'Vv94is3BZ3I', categoryId: 'games'}],
-  ['e1pZIfretEs', { userId: '0', id: 'e1pZIfretEs', categoryId: 'music'}],
-  ['-lec--FlSJ4', { userId: '0', id: '-lec--FlSJ4', categoryId: 'sport'}],
-  ['NnKVD-DZmYQ', { userId: '0', id: 'NnKVD-DZmYQ', categoryId: 'games'}],
-  ['mC4GQTy5sqk', { userId: '0', id: 'mC4GQTy5sqk', categoryId: 'sport'}],
-  ['iv3U78TaK8w', { userId: '0', id: 'iv3U78TaK8w', categoryId: 'music'}],
-  ['ifmWdG3vngA', { userId: '0', id: 'ifmWdG3vngA', categoryId: 'news'}],
-])
 
 export async function GET(request: Request) {
   const urlObject = new URL(request.url)
@@ -66,8 +45,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    const categories = Array.from(new Set([...videosData].map((videoData) => videoData[1].categoryId)))
-    const promises = [...videosData]
+    const categories = Array.from(new Set([...videos].map((videoData) => videoData[1].categoryId)))
+    const promises = [...videos]
       .filter((videoData) => categoryIdParam ? videoData[1].categoryId === categoryIdParam : true)
       .filter((videoData) => userIdParam ? videoData[1].userId === userIdParam : true)
       .map(async (videoData) => {
@@ -104,13 +83,13 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const data = await request.json()
 
-  if (videosData.has(data.videoId)) {
+  if (videos.has(data.videoId)) {
     return Response.json(
       {ok: false, error: 'The video has already been added'},
       {status: 400}
     )
   }
-  videosData.set(data.videoId, {
+  videos.set(data.videoId, {
     userId: data.userId,
     id: data.videoId,
     categoryId: data.categoryId

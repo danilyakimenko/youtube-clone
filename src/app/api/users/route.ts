@@ -1,11 +1,12 @@
 import jsonwebtoken from 'jsonwebtoken'
 import { cookies } from 'next/headers'
-import { UserInfoFromToken, users } from './db'
+import { UserInfoFromToken, users } from '../db'
 import { env } from '@/shared/libs'
+import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames'
 
 export async function GET() {
   const cookiesStore = await cookies()
-  const token = cookiesStore.get('x-auth-token')
+  const token = cookiesStore.get(AUTH_COOKIE_NAME)
 
   if (!token?.value) {
     return Response.json({ok: false, message: "The token is outdated"}, {status: 400})
