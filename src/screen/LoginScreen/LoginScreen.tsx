@@ -9,7 +9,7 @@ import styles from './LoginScreen.module.scss'
 
 const schema = z.object({
   nickname: z.string().min(1, 'Minimum of 1 character'),
-  password: z.string().min(5, 'Minimum of 5 character')
+  password: z.string().min(1, 'Minimum of 5 character')
 })
 
 type Inputs = {

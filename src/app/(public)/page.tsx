@@ -8,6 +8,10 @@ export default async function HomePage() {
       method: 'GET',
     })
     const response = await dataFromServer.json() as GetAllVideosDto
+
+    const dataFromServer1 = await fetch(`${process.env.SERVER_API_URL}/api/users`, {
+      method: 'GET',
+    })
     const finalCategories = VIDEO_CATEGORIES
       .filter(({ id }) => response.categories.includes(id))
 

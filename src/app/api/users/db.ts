@@ -6,4 +6,6 @@ type UserContent = {
   password: string
 }
 
-export const users = new Map<UserId, UserContent>()
+export const users = globalThis.dbUsers || (
+  globalThis.dbUsers = new Map<UserId, UserContent>()
+)
