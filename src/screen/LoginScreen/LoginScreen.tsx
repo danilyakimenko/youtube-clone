@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
+import googleLogoIcon from '@/shared/assets/icons/google.svg'
 import styles from './LoginScreen.module.scss'
 
 const schema = z.object({
@@ -51,40 +52,54 @@ export const LoginScreen = () => {
 
   return (
     <div className={styles.container}>
-      <form
-        className={styles.form}
-        onSubmit={onSubmit}
-      >
-        <label className={styles.label}>
-          <input
-            type="text"
-            placeholder="Nickname"
-            {...register('nickname')}
+      <div className={styles.wrapper}>
+        <div className={styles.info}>
+          <img
+            className={styles.logo}
+            src={googleLogoIcon.src}
+            alt=""
+            width="48"
+            height="48"
+            loading="lazy"
           />
-          {hasNicknameInputError && (
-            <p className={styles.error}>{nicknameErrorMessage}</p>
-          )}
-        </label>
-        <label className={styles.label}>
-          <input
-            type="password"
-            placeholder="Password"
-            {...register('password')}
-          />
-          {hasPasswordInputError && (
-            <p className={styles.error}>{passwordErrorMessage}</p>
-          )}
-        </label>
-        <Link
-          href="/auth/register"
-          title="Create account"
+          <h1 className={styles.title}>Sign in</h1>
+          <p className={styles.description}>to continue to YouTube</p>
+        </div>
+        <form
+          className={styles.form}
+          onSubmit={onSubmit}
         >
-          Create account
-        </Link>
-        <button type="submit">
-          Sign in
-        </button>
-      </form>
+          <label className={styles.label}>
+            <input
+              type="text"
+              placeholder="Nickname"
+              {...register('nickname')}
+            />
+            {hasNicknameInputError && (
+              <p className={styles.error}>{nicknameErrorMessage}</p>
+            )}
+          </label>
+          <label className={styles.label}>
+            <input
+              type="password"
+              placeholder="Password"
+              {...register('password')}
+            />
+            {hasPasswordInputError && (
+              <p className={styles.error}>{passwordErrorMessage}</p>
+            )}
+          </label>
+          <Link
+            href="/auth/register"
+            title="Create account"
+          >
+            Create account
+          </Link>
+          <button type="submit">
+            Sign in
+          </button>
+        </form>
+      </div>
     </div>
   )
 }

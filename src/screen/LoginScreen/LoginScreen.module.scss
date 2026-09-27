@@ -6,14 +6,34 @@
   background-color: #1E1F20;
 }
 
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 10px;
+  width: 60%;
+  background-color: var(--color-black);
+  border-radius: var(--border-radius-l);
+  padding: 36px;
+}
+
+.info {
+  display: grid;
+  row-gap: 10px;
+}
+
+.logo {
+
+}
+
+.title {
+  @include fluid-text(28, 20);
+}
+
 .form {
   display: flex;
   flex-direction: column;
-  align-items: end;
-  width: 80%;
-  padding: 36px;
-  border-radius: var(--border-radius-l);
-  background-color: var(--color-black);
+  min-width: 300px;
+  row-gap: 10px;
 }
 
 .label {
