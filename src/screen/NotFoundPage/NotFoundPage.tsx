@@ -14,7 +14,7 @@ const NotFoundPage = () => {
       <div className={styles.wrapper}>
         <Logo isBig />
         <p>
-          This page isn't available. Sorry about that.<br/>
+          This page isn&apos;t available. Sorry about that.<br/>
           Try searching for something else.
         </p>
       </div>
