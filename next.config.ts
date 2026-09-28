@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
           @use '@/shared/styles/helpers' as *;
         `
   },
+  experimental: {
+    viewTransition: true,
+  }
 };
 
 export default nextConfig;

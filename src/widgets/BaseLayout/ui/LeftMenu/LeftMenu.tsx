@@ -5,6 +5,7 @@ import linkItems from './ui/constants'
 import { useRouter } from 'next/navigation'
 import signOutIcon from '@/shared/assets/icons/sign-out.svg'
 import { signOutRequest } from '@/app/api/users/signOutRequest'
+import { ViewTransition } from 'react'
 import styles from './LeftMenu.module.scss'
 
 type LeftMenuProps = {
@@ -18,59 +19,62 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
     router.replace('/')
   }
   return (
-    <aside className={styles.leftMenu}>
-      <nav>
-        <ul className={styles.list}>
-          {linkItems.map(({title, href, linkIcon}, index) => {
-            if (index !== 0 && !userId) {
-              return null
-            }
+    <ViewTransition>
+      <aside className={styles.leftMenu}>
+        <nav>
+          <ul className={styles.list}>
+            {linkItems.map(({ title, href, linkIcon }, index) => {
+              if (index !== 0 && !userId) {
+                return null
+              }
 
-            return (
-              <li
-                className={styles.item}
-                title={title}
-                key={index}
-              >
-                <Link
+              return (
+                <li
+                  className={styles.item}
+                  title={title}
+                  key={index}
+                >
+                  <Link
+                    className={styles.link}
+                    href={href}
+                    transitionTypes={['slide-in']}
+                  >
+                    <img
+                      className={styles.icon}
+                      src={linkIcon.src}
+                      width={24}
+                      height={24}
+                      alt=""
+                      aria-hidden={true}
+                    />
+                    {title}
+                  </Link>
+                </li>
+              )
+            })}
+            {userId && (
+              <li className={styles.item}>
+                <button
                   className={styles.link}
-                  href={href}
+                  type="button"
+                  onClick={onSignOut}
                 >
                   <img
                     className={styles.icon}
-                    src={linkIcon.src}
+                    src={signOutIcon.src}
                     width={24}
                     height={24}
                     alt=""
                     aria-hidden={true}
                   />
-                  {title}
-                </Link>
+                  Sign Out
+                </button>
               </li>
-            )
-          })}
-          {userId && (
-            <li className={styles.item}>
-              <button
-                className={styles.link}
-                type="button"
-                onClick={onSignOut}
-              >
-                <img
-                  className={styles.icon}
-                  src={signOutIcon.src}
-                  width={24}
-                  height={24}
-                  alt=""
-                  aria-hidden={true}
-                />
-                Sign Out
-              </button>
-            </li>
-          )}
-        </ul>
-      </nav>
-    </aside>
+            )}
+          </ul>
+        </nav>
+      </aside>
+    </ViewTransition>
   )
 }
 
