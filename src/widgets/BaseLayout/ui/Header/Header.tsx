@@ -8,7 +8,6 @@ type HeaderProps = {
 }
 
 const Header = ({ userId }: HeaderProps) => {
-  console.log('header userId', userId)
   return (
     <header className={`${styles.header} container`}>
       <Logo />

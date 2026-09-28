@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { MyVideosScreen } from '@/screen/MyVideosScreen'
-import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
+import { getVideosData } from '@/app/api/videos/getVideosData'
 
 export const metadata: Metadata = {
   title: "My videos",
@@ -10,8 +10,7 @@ export default async function MyVideosPage() {
   const userId = '12345'
 
   try {
-    const dataFromServer = await fetch(`${process.env.SERVER_API_URL}/api/videos?userId=${userId}`)
-    const response = await dataFromServer.json() as GetAllVideosDto
+    const response = await getVideosData({ userIdParam: userId })
 
     if (!response.data) {
       throw new Error('No data about video')

@@ -7,14 +7,14 @@ type VideosListProps = {
   data: GetAllVideosDto['data']
 }
 
-export const VideosList = ({data}: VideosListProps) => {
+export const VideosList = ({ data }: VideosListProps) => {
   if (data?.length <= 0) {
     return <div>No videos</div>
   }
 
   return (
     <div className={styles.videoGrid}>
-      {data.map(({videoId, title, authorName, authorUrl}) => (
+      {data.map(({ videoId, title, authorName, authorUrl }) => (
         <div
           className={styles.videoBlock}
           key={videoId}

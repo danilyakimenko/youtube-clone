@@ -6,7 +6,7 @@ import { GetOneVideoDto } from '@/shared/types/typesFromBackend'
 import styles from './VideoScreen.module.scss'
 
 type VideoScreenProps = {
-  data: GetOneVideoDto['data']
+  data: NonNullable<GetOneVideoDto['data']>
 }
 
 const VideoScreen = ({ data }: VideoScreenProps) => {

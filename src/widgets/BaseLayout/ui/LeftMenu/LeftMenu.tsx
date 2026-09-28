@@ -57,7 +57,7 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
               >
                 <img
                   className={styles.icon}
-                  src={signOutIcon}
+                  src={signOutIcon.src}
                   width={24}
                   height={24}
                   alt=""

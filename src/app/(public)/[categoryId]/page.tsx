@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { GetAllVideosDto } from '@/shared/types/typesFromBackend'
 import HomeScreen from '@/screen/HomeScreen'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 import { notFound } from 'next/navigation'
+import { getVideosData } from '@/app/api/videos/getVideosData'
 
 type CategoryPageProps = {
   params: Promise<{ categoryId: string }>
@@ -31,8 +31,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!findCategory) return notFound()
 
   try {
-    const dataFromServer = await fetch(`${process.env.SERVER_API_URL}/api/videos?categoryId=${categoryId}`)
-    const response = await dataFromServer.json() as GetAllVideosDto
+    const response = await getVideosData({ userIdParam: categoryId })
     
     if (!response.data) {
       throw new Error('No data about video')
