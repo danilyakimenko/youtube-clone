@@ -100,7 +100,7 @@ export async function saveUsers(users: Map<UserId, UserContent>): Promise<void> 
   const newKey = `${USERS_BLOB_PREFIX}-${timestamp}.json`;
 
   await put(newKey, JSON.stringify(data), {
-    access: 'private',
+    access: 'public',
     addRandomSuffix: false,
     contentType: 'application/json',
     cacheControlMaxAge: 0,
@@ -161,7 +161,7 @@ export async function saveVideos(videos: Map<VideoId, VideoDataContent>): Promis
   const newKey = `${VIDEOS_BLOB_PREFIX}-${timestamp}.json`;
 
   await put(newKey, JSON.stringify(data), {
-    access: 'private',
+    access: 'public',
     addRandomSuffix: false,
     contentType: 'application/json',
     cacheControlMaxAge: 0,
