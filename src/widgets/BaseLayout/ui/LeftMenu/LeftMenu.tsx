@@ -15,7 +15,7 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
   const router = useRouter()
   const onSignOut = async () => {
     await signOutRequest()
-    router.refresh()
+    router.replace('/')
   }
   return (
     <aside className={styles.leftMenu}>
