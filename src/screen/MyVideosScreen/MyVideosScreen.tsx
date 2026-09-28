@@ -7,6 +7,6 @@ type MyVideosScreenProps = {
   data: GetAllVideosDto['data']
 }
 
-export const MyVideosScreen = ({data}: MyVideosScreenProps) => {
+export const MyVideosScreen = ({ data }: MyVideosScreenProps) => {
   return <VideosList data={data} />
 }

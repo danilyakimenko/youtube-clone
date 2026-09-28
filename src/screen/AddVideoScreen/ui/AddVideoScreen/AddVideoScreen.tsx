@@ -6,6 +6,7 @@ import styles from './AddVideoScreen.module.scss'
 
 const AddVideoScreen = () => {
   const {
+    isLoading,
     register,
     videoId,
     errors,
@@ -14,6 +15,14 @@ const AddVideoScreen = () => {
 
   const videoUrlErrorMessage = errors.videoUrl?.message
   const hasVideoUrlInputError = Boolean(videoUrlErrorMessage)
+
+  if (isLoading) {
+    return (
+      <div className={styles.container}>
+        <p>Video is loading...</p>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.container}>

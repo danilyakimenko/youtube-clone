@@ -42,6 +42,7 @@ type Inputs = {
 
 export const useAddVideoForm = () => {
   const [videoId, setVideoId] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     register,
@@ -53,6 +54,7 @@ export const useAddVideoForm = () => {
   })
 
   const onSubmitHandler = async (data: Inputs) => {
+    setIsLoading(true)
     const url = new URL(data.videoUrl)
     const videoId = urlParser(url)
 
@@ -61,9 +63,11 @@ export const useAddVideoForm = () => {
     setVideoId(videoId)
     await addOneVideoRequest({ userId: '12345', videoId, categoryId: data.videoCategory })
     reset()
+    setIsLoading(false)
   }
 
   return {
+    isLoading,
     register,
     videoId,
     errors,
