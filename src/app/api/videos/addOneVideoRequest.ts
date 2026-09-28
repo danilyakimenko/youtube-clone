@@ -8,7 +8,7 @@ type addOneVideoProps = {
   categoryId: string
 }
 
-export const addOneVideo = async ({
+export const addOneVideoRequest = async ({
   userId,
   videoId,
   categoryId,

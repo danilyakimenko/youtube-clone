@@ -1,24 +1,34 @@
+'use server'
+
 import bcrypt from 'bcrypt'
 import jsonwebtoken from 'jsonwebtoken'
-import { users } from '../../db'
+import { users } from '../db'
 import { cookies } from 'next/headers'
 import { env } from '@/shared/libs/env'
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames'
 
-export async function POST(request: Request) {
-  const data = await request.json()
+type loginProps = {
+  nickname: string
+  password: string
+}
+
+export const loginRequest = async (data: loginProps) => {
   const user = users.get(data.nickname)
 
   if (!user) {
-    return Response.json({ok: false, message: "The user was not found"}, {status: 400})
+    return {
+      ok: false,
+      message: "The user was not found"
+    }
   }
-
   const isPasswordsEqual = await bcrypt.compare(data.password, user.password)
 
   if (!isPasswordsEqual) {
-    return Response.json({ok: false, message: "Invalid password"}, {status: 400})
+    return {
+      ok: false,
+      message: "Invalid password"
+    }
   }
-
   const { id, nickname } = user
   const jwt = jsonwebtoken.sign({ id, nickname }, env.JWT_SECRET, { expiresIn: '1h' })
   const cookiesStore = await cookies()
@@ -29,5 +39,8 @@ export async function POST(request: Request) {
     secure: true,
   })
 
-  return Response.json({ ok: true, user: { id, nickname } })
+  return {
+    ok: true,
+    user: { id, nickname }
+  }
 }

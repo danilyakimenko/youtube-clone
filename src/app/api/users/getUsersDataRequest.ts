@@ -4,7 +4,7 @@ import { UserInfoFromToken, users } from '../db'
 import { env } from '@/shared/libs/env'
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames'
 
-export const getUsersData = async () => {
+export const getUsersDataRequest = async () => {
   const cookiesStore = await cookies()
   const token = cookiesStore.get(AUTH_COOKIE_NAME)
 

@@ -1,10 +1,10 @@
 import HomeScreen from '@/screen/HomeScreen'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
-import { getVideosData } from '@/app/api/videos/getVideosData'
+import { getVideosDataRequest } from '@/app/api/videos/getVideosDataRequest'
 
 export default async function HomePage() {
   try {
-    const response = await getVideosData()
+    const response = await getVideosDataRequest()
     const finalCategories = VIDEO_CATEGORIES
       .filter(({ id }) => response.categories.includes(id))
 

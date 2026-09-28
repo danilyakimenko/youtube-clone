@@ -4,6 +4,7 @@ import Link from 'next/link'
 import linkItems from './ui/constants'
 import { useRouter } from 'next/navigation'
 import signOutIcon from '@/shared/assets/icons/sign-out.svg'
+import { signOutRequest } from '@/app/api/users/signOutRequest'
 import styles from './LeftMenu.module.scss'
 
 type LeftMenuProps = {
@@ -12,8 +13,8 @@ type LeftMenuProps = {
 
 const LeftMenu = ({ userId }: LeftMenuProps) => {
   const router = useRouter()
-  const onLogOut = async () => {
-    await fetch(`/api/users/signout`)
+  const onSignOut = async () => {
+    await signOutRequest()
     router.refresh()
   }
   return (
@@ -53,7 +54,7 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
               <button
                 className={styles.link}
                 type="button"
-                onClick={onLogOut}
+                onClick={onSignOut}
               >
                 <img
                   className={styles.icon}

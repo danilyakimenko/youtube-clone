@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { isAllowedHost, urlParser, YOUTUBE_DOMAINS } from '@/shared/libs'
-import { addOneVideo } from '@/app/api/videos/addOneVideo'
+import { addOneVideoRequest } from '@/app/api/videos/addOneVideoRequest'
 
 const schema = z.object({
   videoUrl: z
@@ -59,7 +59,7 @@ export const useAddVideoForm = () => {
     if (!videoId) return
 
     setVideoId(videoId)
-    await addOneVideo({ userId: '12345', videoId, categoryId: data.videoCategory })
+    await addOneVideoRequest({ userId: '12345', videoId, categoryId: data.videoCategory })
     reset()
   }
 

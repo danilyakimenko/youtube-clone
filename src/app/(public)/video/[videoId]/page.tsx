@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import VideoScreen from '@/screen/VideoScreen'
-import { getOneVideo } from '@/app/api/videos/getOneVideo'
+import { getOneVideoRequest } from '@/app/api/videos/getOneVideoRequest'
 
 type VideoPageProps = {
   params: Promise<{ videoId: string }>
@@ -12,7 +12,7 @@ export async function generateMetadata(
   const data = await params
   const videoId = data.videoId
   try {
-    const response = await getOneVideo({ videoId })
+    const response = await getOneVideoRequest({ videoId })
 
     if (!response.data) {
       throw new Error('No data about video')
@@ -35,7 +35,7 @@ export default async function VideoPage({ params }: VideoPageProps) {
   const videoId = data.videoId
 
   try {
-    const response = await getOneVideo({ videoId })
+    const response = await getOneVideoRequest({ videoId })
 
     if (!response.data) {
       throw new Error('No data about video')

@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import styles from './RegisterScreen.module.scss'
+import { registerRequest } from '@/app/api/users/registerRequest'
 
 const schema = z.object({
   nickname: z.string().min(1, 'Minimum of 1 character'),
@@ -38,10 +39,7 @@ export const RegisterScreen = () => {
     const { nickname, password } = data
 
     try {
-      const response = await fetch('/api/users/register', {
-        method: 'POST',
-        body: JSON.stringify({ nickname, password }),
-      })
+      const response = await registerRequest({ nickname, password })
 
       if (response.ok) {
         router.replace('/')

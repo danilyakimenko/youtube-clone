@@ -5,7 +5,7 @@ type getOneVideoProps = {
   videoId: string
 }
 
-export const getOneVideo = async ({
+export const getOneVideoRequest = async ({
   videoId
 }: getOneVideoProps): Promise<GetOneVideoDto> => {
   const rawResult = await fetch(`

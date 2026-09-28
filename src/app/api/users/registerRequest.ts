@@ -1,17 +1,24 @@
+'use server'
+
 import bcrypt from 'bcrypt'
-import { users } from '../../db'
+import { users } from '../db'
 import jsonwebtoken from 'jsonwebtoken'
 import { cookies } from 'next/headers'
 import { env } from '@/shared/libs/env'
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames'
 
-export async function POST(request: Request) {
-  const data = await request.json()
+type registerProps = {
+  nickname: string
+  password: string
+}
 
+export const registerRequest = async (data: registerProps) => {
   if (users.has(data.nickname)) {
-    return Response.json({ok: false, message: "A user with this nickname has already been registered"}, {status: 400})
+    return {
+      ok: false,
+      message: "A user with this nickname has already been registered"
+    }
   }
-
   const id = crypto.randomUUID()
   const hashedPassword = await bcrypt.hash(data.password, 10)
 
@@ -25,6 +32,5 @@ export async function POST(request: Request) {
     httpOnly: true,
     secure: true,
   })
-
-  return Response.json({ok: true})
+  return {ok: true}
 }

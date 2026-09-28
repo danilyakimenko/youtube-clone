@@ -7,7 +7,7 @@ type GetVideosDataProps = {
   userIdParam?: string
 }
 
-export const getVideosData = async ({
+export const getVideosDataRequest = async ({
   categoryIdParam,
   userIdParam
 }: GetVideosDataProps = {}): Promise<GetAllVideosDto> => {

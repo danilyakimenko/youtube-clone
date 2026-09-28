@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import googleLogoIcon from '@/shared/assets/icons/google.svg'
 import styles from './LoginScreen.module.scss'
+import { loginRequest } from '@/app/api/users/loginRequest'
 
 const schema = z.object({
   nickname: z.string().min(1, 'Minimum of 1 character'),
@@ -32,10 +33,7 @@ export const LoginScreen = () => {
     const {nickname, password} = data
 
     try {
-      const response = await fetch('/api/users/login', {
-        method: 'POST',
-        body: JSON.stringify({nickname, password}),
-      })
+      const response = await loginRequest({ nickname, password})
 
       if (response.ok) {
         router.replace('/')

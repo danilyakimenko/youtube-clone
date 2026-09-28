@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames'
-import { getUsersData } from '@/app/api/users/getUsersData'
+import { getUsersDataRequest } from '@/app/api/users/getUsersDataRequest'
 
 export const withUserInfo = <T extends object>(Component: React.FC<T>) => {
   return async (props: T) => {
@@ -12,7 +12,7 @@ export const withUserInfo = <T extends object>(Component: React.FC<T>) => {
         throw new Error()
       }
 
-      const dataFromBackend = await getUsersData()
+      const dataFromBackend = await getUsersDataRequest()
 
       return <Component user={dataFromBackend.user} {...props} />
     }
