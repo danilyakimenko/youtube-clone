@@ -3,16 +3,18 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { isAllowedHost, urlParser, YOUTUBE_DOMAINS } from '@/shared/libs'
+import { addOneVideo } from '@/app/api/videos/addOneVideo'
 
 const schema = z.object({
   videoUrl: z
     .string()
-    .min(1, {message: 'The field must not be empty.'})
+    .min(1, { message: 'The field must not be empty.' })
     .superRefine((url, ctx) => {
       let parsedURL: URL
       try {
         parsedURL = new URL(url)
-      } catch {
+      }
+      catch {
         ctx.addIssue({
           code: "custom",
           message: 'The field must contain a link',
@@ -45,7 +47,7 @@ export const useAddVideoForm = () => {
     register,
     handleSubmit,
     reset,
-    formState: {errors},
+    formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
@@ -57,11 +59,7 @@ export const useAddVideoForm = () => {
     if (!videoId) return
 
     setVideoId(videoId)
-
-    await fetch('/api/videos', {
-      method: 'POST',
-      body: JSON.stringify({ userId: '12345', videoId, categoryId: data.videoCategory }),
-    })
+    await addOneVideo({ userId: '12345', videoId, categoryId: data.videoCategory })
     reset()
   }
 

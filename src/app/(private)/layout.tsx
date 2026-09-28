@@ -10,7 +10,6 @@ function PrivateLayout({
   children: React.ReactNode
   user?: AuthUserDto
 }) {
-  console.log('public layout user', user)
   return (
     <BaseLayout userId={user?.id}>
       {children}
