@@ -31,8 +31,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!findCategory) return notFound()
 
   try {
-    const response = await getVideosData({ userIdParam: categoryId })
-    
+    const response = await getVideosData({ categoryIdParam: categoryId })
+    console.log('response', response)
+
     if (!response.data) {
       throw new Error('No data about video')
     }
