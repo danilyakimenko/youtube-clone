@@ -16,8 +16,9 @@ const linkItems = [
   },
   {
     title: 'Profile',
-    href: '/profile/123',
+    href: `/profile`,
     linkIcon: ProfileIcon,
+    isUserProfile: true,
   },
   {
     title: 'Your videos',

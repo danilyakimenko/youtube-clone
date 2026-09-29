@@ -23,10 +23,13 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
       <aside className={styles.leftMenu}>
         <nav>
           <ul className={styles.list}>
-            {linkItems.map(({ title, href, linkIcon }, index) => {
+            {linkItems.map(({ title, href, linkIcon, isUserProfile }, index) => {
               if (index !== 0 && !userId) {
                 return null
               }
+              const linkHref = isUserProfile && userId
+                ? `/profile/${userId}`
+                : href
 
               return (
                 <li
@@ -36,7 +39,7 @@ const LeftMenu = ({ userId }: LeftMenuProps) => {
                 >
                   <Link
                     className={styles.link}
-                    href={href}
+                    href={linkHref}
                     transitionTypes={['slide-in']}
                   >
                     <img

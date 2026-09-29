@@ -1,20 +1,17 @@
 import type { Metadata } from 'next'
+import { ProfileScreen } from '@/screen/ProfileScreen'
 
 export const metadata: Metadata = {
   title: "Profile: ...",
 }
 
 type ProfilePageProps = {
-  params: Promise<{ profileId: string }>
+  params: Promise<{ userId: string }>
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
   const data = await params
-  const profileId = data.profileId
+  const userId = data.userId
 
-  return (
-    <div>
-      ProfilePage: {profileId}
-    </div>
-  );
+  return <ProfileScreen userId={userId} />
 }
