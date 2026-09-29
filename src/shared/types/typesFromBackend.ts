@@ -20,4 +20,7 @@ export type GetAllVideosDto = {
 export type AuthUserDto = {
   id: string
   nickname: string
+  bio?: string
+  avatarUrl?: string
+  youtubeLink?: string
 }

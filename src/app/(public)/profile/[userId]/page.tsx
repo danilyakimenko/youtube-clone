@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ProfileScreen } from '@/screen/ProfileScreen'
+import { getUsersDataRequest } from '@/app/api/users/getUsersDataRequest'
 
 export const metadata: Metadata = {
   title: "Profile: ...",
@@ -10,8 +11,20 @@ type ProfilePageProps = {
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
-  const data = await params
-  const userId = data.userId
+  try {
+    const userInfo = await getUsersDataRequest()
+    const { user } = userInfo
 
-  return <ProfileScreen userId={userId} />
+    if (!user?.id) {
+      throw new Error('No data about user')
+    }
+
+    const userId = user.id
+    console.log('profilepageuserlog', user)
+    return <ProfileScreen userId={userId} />
+  }
+  catch (error) {
+    console.error(error)
+    return <div>Something went wrong...</div>
+  }
 }

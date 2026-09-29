@@ -1,8 +1,9 @@
+'use server'
+
 import { getUsers, saveUsers, UserContent } from '@/app/api/blobDB'
 import { getUsersDataRequest } from '@/app/api/users/getUsersDataRequest'
 
 type UpdateUserProfileInput = {
-  nickname?: string
   bio?: string
   avatarUrl?: string
 }

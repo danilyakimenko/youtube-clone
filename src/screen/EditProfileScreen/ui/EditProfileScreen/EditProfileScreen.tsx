@@ -5,29 +5,33 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { schema } from '../../constants/editProfileSchema'
+import { AuthUserDto } from '@/shared/types/typesFromBackend'
+import { updateUserProfile } from '@/app/api/users/updateUserInfo'
 
 type EditProfileScreen = {
-  userId: string
+  user: AuthUserDto
 }
 
 type Inputs = {
-  nickname: string
   bio: string
   youtubeLink: string
   avatarUrl: string
 }
 
-export const EditProfileScreen = ({ userId }: EditProfileScreen) => {
+export const EditProfileScreen = ({ user }: EditProfileScreen) => {
+  const {
+    id: userId,
+    ...rest
+  } = user
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
+    defaultValues: rest,
   })
-
-  const nicknameErrorMessage = errors.nickname?.message
-  const hasNicknameInputError = Boolean(nicknameErrorMessage)
   const biographyErrorMessage = errors.bio?.message
   const hasBiographyInputError = Boolean(biographyErrorMessage)
   const youtubeLinkErrorMessage = errors.youtubeLink?.message
@@ -35,8 +39,9 @@ export const EditProfileScreen = ({ userId }: EditProfileScreen) => {
   const avatarUrlErrorMessage = errors.avatarUrl?.message
   const hasAvatarUrlInputError = Boolean(avatarUrlErrorMessage)
 
-  const onSubmit = (values: Inputs) => {
+  const onSubmit = async(values: Inputs) => {
     console.log('values', values)
+    await updateUserProfile(values)
   }
 
   return (
@@ -48,17 +53,6 @@ export const EditProfileScreen = ({ userId }: EditProfileScreen) => {
         className={styles.form}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <label className={styles.label}>
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Your nickname"
-            {...register(`nickname`)}
-          />
-          {hasNicknameInputError && (
-            <p className={styles.error}>{nicknameErrorMessage}</p>
-          )}
-        </label>
         <label className={styles.label}>
           <textarea
             className={styles.input}

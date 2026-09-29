@@ -1,17 +1,23 @@
 import type { Metadata } from 'next'
 import { EditProfileScreen } from '@/screen/EditProfileScreen'
+import { getUsersDataRequest } from '@/app/api/users/getUsersDataRequest'
 
 export const metadata: Metadata = {
   title: "ProfileEdit: ...",
 }
 
-type ProfileEditPageProps = {
-  params: Promise<{ userId: string }>
-}
+export default async function ProfileEditPage() {
+  try {
+    const userInfo = await getUsersDataRequest()
+    const { user } = userInfo
 
-export default async function ProfileEditPage({ params }: ProfileEditPageProps) {
-  const data = await params
-  const userId = data.userId
-
-  return <EditProfileScreen userId={userId} />
+    if (!user?.id) {
+      throw new Error('No data about user')
+    }
+    return <EditProfileScreen user={user} />
+  }
+  catch (error) {
+    console.error(error)
+    return <div>Something went wrong...</div>
+  }
 }
