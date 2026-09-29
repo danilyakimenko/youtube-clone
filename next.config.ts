@@ -23,10 +23,9 @@ const nextConfig: NextConfig = {
       utils: '@/shared/styles/helpers/utils.scss',
     },
   },
-
   experimental: {
     viewTransition: true,
-  }
+  },
 };
 
 export default nextConfig;

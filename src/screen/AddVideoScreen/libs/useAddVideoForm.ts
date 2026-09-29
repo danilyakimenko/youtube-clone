@@ -1,46 +1,21 @@
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { isAllowedHost, urlParser, YOUTUBE_DOMAINS } from '@/shared/libs'
+import { urlParser } from '@/shared/libs'
 import { addOneVideoRequest } from '@/app/api/videos/addOneVideoRequest'
+import { schema } from '../constants/addVideoSchema'
 
-const schema = z.object({
-  videoUrl: z
-    .string()
-    .min(1, { message: 'The field must not be empty.' })
-    .superRefine((url, ctx) => {
-      let parsedURL: URL
-      try {
-        parsedURL = new URL(url)
-      }
-      catch {
-        ctx.addIssue({
-          code: "custom",
-          message: 'The field must contain a link',
-          input: url,
-        })
-        return
-      }
 
-      if (!isAllowedHost(parsedURL.host, YOUTUBE_DOMAINS)) {
-        ctx.addIssue({
-          code: "custom",
-          message: 'The link should be on YouTube.',
-          input: url,
-        })
-      }
-    }),
-  videoCategory: z
-    .string()
-})
+type useAddVideoFormProps = {
+  userId: string
+}
 
 type Inputs = {
   videoUrl: string
   videoCategory: string
 }
 
-export const useAddVideoForm = () => {
+export const useAddVideoForm = ({ userId }: useAddVideoFormProps) => {
   const [videoId, setVideoId] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -61,7 +36,7 @@ export const useAddVideoForm = () => {
     if (!videoId) return
 
     setVideoId(videoId)
-    await addOneVideoRequest({ userId: '12345', videoId, categoryId: data.videoCategory })
+    await addOneVideoRequest({ userId, videoId, categoryId: data.videoCategory })
     reset()
     setIsLoading(false)
   }

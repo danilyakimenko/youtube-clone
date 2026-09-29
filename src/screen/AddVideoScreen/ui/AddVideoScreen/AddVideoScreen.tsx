@@ -4,14 +4,18 @@ import { useAddVideoForm } from '@/screen/AddVideoScreen/libs/useAddVideoForm'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 import styles from './AddVideoScreen.module.scss'
 
-const AddVideoScreen = () => {
+type AddVideoScreenProps = {
+  userId: string
+}
+
+const AddVideoScreen = ({ userId }: AddVideoScreenProps) => {
   const {
     isLoading,
     register,
     videoId,
     errors,
     onSubmit,
-  } = useAddVideoForm()
+  } = useAddVideoForm({ userId })
 
   const videoUrlErrorMessage = errors.videoUrl?.message
   const hasVideoUrlInputError = Boolean(videoUrlErrorMessage)
