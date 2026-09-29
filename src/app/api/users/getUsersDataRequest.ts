@@ -19,9 +19,7 @@ export const getUsersDataRequest = async () => {
     return { ok: false, message: "The user was not found" }
   }
 
-  const { id, nickname } = user
+  const { password: _, ...rest } = user
 
-  return {
-    ok: true, user: { id, nickname }
-  }
+  return { ok: true, user: rest }
 }

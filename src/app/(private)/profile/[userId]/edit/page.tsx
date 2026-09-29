@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { EditProfileScreen } from '@/screen/EditProfileScreen'
 
 export const metadata: Metadata = {
   title: "ProfileEdit: ...",
@@ -12,9 +13,5 @@ export default async function ProfileEditPage({ params }: ProfileEditPageProps) 
   const data = await params
   const userId = data.userId
 
-  return (
-    <div>
-      ProfileEditPage: {userId}
-    </div>
-  );
+  return <EditProfileScreen userId={userId} />
 }
