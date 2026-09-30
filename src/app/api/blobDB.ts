@@ -1,6 +1,6 @@
 import { del, list, put } from '@vercel/blob'
 
-type UserId = string
+export type UserId = string
 
 export type UserContent = {
   id: UserId

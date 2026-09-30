@@ -24,7 +24,7 @@ export const registerRequest = async (data: registerProps) => {
   const id = crypto.randomUUID()
   const hashedPassword = await bcrypt.hash(data.password, 10)
 
-  users.set(data.nickname, { id, nickname: data.nickname, password: hashedPassword })
+  users.set(id, { id, nickname: data.nickname, password: hashedPassword })
 
   await saveUsers(users)
 

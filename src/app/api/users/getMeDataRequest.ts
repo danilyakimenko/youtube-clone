@@ -13,7 +13,7 @@ export const getMeDataRequest = async () => {
   }
   const users = await getUsers()
   const userInfo = jsonwebtoken.verify(token.value, env.JWT_SECRET) as UserInfoFromToken
-  const user = users.get(userInfo.nickname)
+  const user = users.get(userInfo.id)
 
   if (!user) {
     return { ok: false, message: "The user was not found" }

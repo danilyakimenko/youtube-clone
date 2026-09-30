@@ -6,6 +6,7 @@ import { cookies } from 'next/headers'
 import { env } from '@/shared/libs/env'
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames'
 import { getUsers } from '@/app/api/blobDB'
+import { getUserByNickname } from '@/app/api/_libs/getUserByNickname'
 
 type loginProps = {
   nickname: string
@@ -14,7 +15,7 @@ type loginProps = {
 
 export const loginRequest = async (data: loginProps) => {
   const users = await getUsers()
-  const user = users.get(data.nickname)
+  const user = getUserByNickname(data.nickname, users)
 
   if (!user) {
     return {

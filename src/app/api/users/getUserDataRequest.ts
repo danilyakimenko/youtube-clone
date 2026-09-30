@@ -1,4 +1,5 @@
 import { getUsers } from '@/app/api/blobDB'
+import { getUserByNickname } from '@/app/api/_libs/getUserByNickname'
 
 type GetUserDataRequestProps = {
   nickname: string
@@ -6,7 +7,7 @@ type GetUserDataRequestProps = {
 
 export const getUserDataRequest = async ({ nickname }: GetUserDataRequestProps) => {
   const users = await getUsers()
-  const user = users.get(nickname)
+  const user = getUserByNickname(nickname, users)
 
   if (!user) {
     return { ok: false, message: "The user was not found" }
