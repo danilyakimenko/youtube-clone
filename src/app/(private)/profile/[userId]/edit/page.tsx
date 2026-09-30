@@ -6,7 +6,8 @@ export const metadata: Metadata = {
   title: "Edit profile",
   openGraph: {
     title: "Edit profile"
-  }
+  },
+  robots: 'noindex'
 }
 
 export default async function ProfileEditPage() {
