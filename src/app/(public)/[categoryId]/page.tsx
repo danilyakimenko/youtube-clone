@@ -16,10 +16,18 @@ export async function generateMetadata(
   const findCategory = VIDEO_CATEGORIES.find((category) => category.id === categoryId)
 
   if (!findCategory)
-    return { title: '404 Not Found' }
+    return {
+      title: '404 Not Found',
+      openGraph: {
+        title: "404 Not Found"
+      }
+    }
+
+  const title = `Videos in category - ${findCategory.title}`
 
   return {
-    title: `Videos in category - ${findCategory.title}`,
+    title,
+    openGraph: { title },
   }
 }
 

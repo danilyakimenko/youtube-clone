@@ -5,6 +5,10 @@ import React from 'react'
 export const metadata: Metadata = {
   title: "YouTube Clone",
   description: "YouTube Clone pet project",
+  openGraph: {
+    title: "YouTube Clone",
+    description: 'YouTube Clone site',
+  }
 }
 
 const RootLayout = ({

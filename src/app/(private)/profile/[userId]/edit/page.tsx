@@ -4,6 +4,9 @@ import { getMeDataRequest } from '@/app/api/users/getMeDataRequest'
 
 export const metadata: Metadata = {
   title: "Edit profile",
+  openGraph: {
+    title: "Edit profile"
+  }
 }
 
 export default async function ProfileEditPage() {

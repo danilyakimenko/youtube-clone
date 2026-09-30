@@ -5,6 +5,9 @@ import { getMeDataRequest } from '@/app/api/users/getMeDataRequest'
 
 export const metadata: Metadata = {
   title: "My videos",
+  openGraph: {
+    title: "My videos"
+  }
 }
 
 export default async function MyVideosPage() {

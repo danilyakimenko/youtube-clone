@@ -11,16 +11,26 @@ export async function generateMetadata({ params }: ProfilePageProps): Promise<Me
     const { user } = userInfo
 
     if (!user)
-      return { title: 'User not found' }
+      return {
+        title: 'User not found',
+        openGraph: {
+          title: "User not found"
+        }
+      }
 
+    const title = `Profile: ${user.nickname}`
     return {
-      title: `Profile: ${user.nickname}`,
+      title,
+      openGraph: { title},
     }
   }
   catch (error) {
     console.error(error)
     return {
-      title: 'Something went wrong...'
+      title: 'Something went wrong...',
+      openGraph: {
+        title: "Something went wrong..."
+      }
     }
   }
 }

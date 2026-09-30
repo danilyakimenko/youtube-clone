@@ -18,14 +18,22 @@ export async function generateMetadata(
       throw new Error('No data about video')
     }
 
+    const title = `${response.data.title}`
     return {
-      title: `${response.data.title}`,
+      title,
+      openGraph: {
+        title,
+        images: `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`
+      }
     }
   }
   catch (error) {
     console.error(error)
     return {
-      title: 'Something went wrong'
+      title: 'Something went wrong...',
+      openGraph: {
+        title: "Something went wrong..."
+      }
     }
   }
 }
