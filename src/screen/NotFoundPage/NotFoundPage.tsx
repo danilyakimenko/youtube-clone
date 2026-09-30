@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import Logo from '@/shared/ui/Logo'
+import { Logo } from '@/shared/ui'
 import styles from './NotFoundPage.module.scss'
 
 const NotFoundPage = () => {

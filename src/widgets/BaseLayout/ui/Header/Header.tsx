@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Logo from '@/shared/ui/Logo'
+import { Logo } from '@/shared/ui'
 import styles from './Header.module.scss'
 import signInIcon from '@/shared/assets/icons/sign-in.svg'
 

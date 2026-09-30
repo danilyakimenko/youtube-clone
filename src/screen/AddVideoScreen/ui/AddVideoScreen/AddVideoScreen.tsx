@@ -3,6 +3,9 @@
 import { useAddVideoForm } from '@/screen/AddVideoScreen/libs/useAddVideoForm'
 import { VIDEO_CATEGORIES } from '@/shared/constants/videoCategories'
 import styles from './AddVideoScreen.module.scss'
+import { Input } from '@/shared/ui'
+import { FormProvider } from 'react-hook-form'
+import { Button } from '@/shared/ui/Button'
 
 type AddVideoScreenProps = {
   userId: string
@@ -11,14 +14,10 @@ type AddVideoScreenProps = {
 const AddVideoScreen = ({ userId }: AddVideoScreenProps) => {
   const {
     isLoading,
-    register,
+    useFormData,
     videoId,
-    errors,
     onSubmit,
   } = useAddVideoForm({ userId })
-
-  const videoUrlErrorMessage = errors.videoUrl?.message
-  const hasVideoUrlInputError = Boolean(videoUrlErrorMessage)
 
   if (isLoading) {
     return (
@@ -30,43 +29,35 @@ const AddVideoScreen = ({ userId }: AddVideoScreenProps) => {
 
   return (
     <div className={styles.container}>
-      <form
-        className={styles.form}
-        onSubmit={onSubmit}
-      >
-        <select
-          className={styles.select}
-          {...register(`videoCategory`)}
+      <FormProvider {...useFormData}>
+        <form
+          className={styles.form}
+          onSubmit={onSubmit}
         >
-          {VIDEO_CATEGORIES.map(({ title, id }) => (
-            <option
-              value={id}
-              key={id}
-            >
-              {title}
-            </option>
-          ))}
-        </select>
-        <label className={styles.label}>
-          <input
-            className={styles.input}
-            type="text"
-            placeholder="Insert the link to the video"
-            {...register(`videoUrl`)}
+          <select
+            className={styles.select}
+            {...useFormData.register(`videoCategory`)}
+          >
+            {VIDEO_CATEGORIES.map(({ title, id }) => (
+              <option
+                value={id}
+                key={id}
+              >
+                {title}
+              </option>
+            ))}
+          </select>
+          <Input
+            name="videoUrl"
+            placeholder="Link to the YouTube video"
           />
-          {hasVideoUrlInputError && (
-            <p className={styles.error}>{videoUrlErrorMessage}</p>
-          )}
-        </label>
-        <button
-          className={styles.button}
-          type="submit"
-          title="Upload video"
-        >
-          Upload
-        </button>
-      </form>
-
+          <Button
+            type="submit"
+            label="Upload"
+            mode="primary"
+          />
+        </form>
+      </FormProvider>
       {videoId && (
         <iframe
           className={styles.iframe}

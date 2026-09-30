@@ -18,16 +18,9 @@ type Inputs = {
 export const useAddVideoForm = ({ userId }: useAddVideoFormProps) => {
   const [videoId, setVideoId] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<Inputs>({
+  const useFormData = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
-
   const onSubmitHandler = async (data: Inputs) => {
     setIsLoading(true)
     const url = new URL(data.videoUrl)
@@ -37,15 +30,14 @@ export const useAddVideoForm = ({ userId }: useAddVideoFormProps) => {
 
     setVideoId(videoId)
     await addOneVideoRequest({ userId, videoId, categoryId: data.videoCategory })
-    reset()
+    useFormData.reset()
     setIsLoading(false)
   }
 
   return {
     isLoading,
-    register,
+    useFormData,
     videoId,
-    errors,
-    onSubmit: handleSubmit(onSubmitHandler),
+    onSubmit: useFormData.handleSubmit(onSubmitHandler),
   }
 }

@@ -7,7 +7,7 @@ type LogoProps = {
   isBig?: boolean
 }
 
-const Logo = (props: LogoProps) => {
+export const Logo = (props: LogoProps) => {
   const {
     isBig,
   } = props
@@ -30,5 +30,3 @@ const Logo = (props: LogoProps) => {
     </Link>
   )
 }
-
-export default Logo  

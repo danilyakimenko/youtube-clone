@@ -41,10 +41,12 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     }
     const isAuthorized = userFromAuthToken?.id === userId
 
-    return <ProfileScreen
-      user={user}
-      isAuthorized={isAuthorized}
-    />
+    return (
+      <ProfileScreen
+        user={user}
+        isAuthorized={isAuthorized}
+      />
+    )
   }
   catch (error) {
     console.error(error)
