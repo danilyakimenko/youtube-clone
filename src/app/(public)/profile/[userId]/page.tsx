@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { ProfileScreen } from '@/screen/ProfileScreen'
-import { getUsersDataRequest } from '@/app/api/users/getUsersDataRequest'
+import { getUserDataRequest } from '@/app/api/users/getUserDataRequest'
 
 export const metadata: Metadata = {
   title: "Profile: ...",
@@ -12,7 +12,7 @@ type ProfilePageProps = {
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
   try {
-    const userInfo = await getUsersDataRequest()
+    const userInfo = await getUserDataRequest({ nickname: '1234' })
     const { user } = userInfo
 
     if (!user?.id) {

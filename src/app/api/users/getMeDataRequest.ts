@@ -4,7 +4,7 @@ import { env } from '@/shared/libs/env'
 import { AUTH_COOKIE_NAME } from '@/shared/constants/cookiesNames'
 import { getUsers, UserInfoFromToken } from '@/app/api/blobDB'
 
-export const getUsersDataRequest = async () => {
+export const getMeDataRequest = async () => {
   const cookiesStore = await cookies()
   const token = cookiesStore.get(AUTH_COOKIE_NAME)
 
@@ -18,7 +18,6 @@ export const getUsersDataRequest = async () => {
   if (!user) {
     return { ok: false, message: "The user was not found" }
   }
-
   const { password: _, ...rest } = user
 
   return { ok: true, user: rest }

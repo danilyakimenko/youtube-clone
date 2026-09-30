@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { EditProfileScreen } from '@/screen/EditProfileScreen'
-import { getUsersDataRequest } from '@/app/api/users/getUsersDataRequest'
+import { getMeDataRequest } from '@/app/api/users/getMeDataRequest'
 
 export const metadata: Metadata = {
   title: "ProfileEdit: ...",
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default async function ProfileEditPage() {
   try {
-    const userInfo = await getUsersDataRequest()
+    const userInfo = await getMeDataRequest()
     const { user } = userInfo
 
     if (!user?.id) {

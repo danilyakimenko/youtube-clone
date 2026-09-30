@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import AddVideoScreen from '@/screen/AddVideoScreen/ui/AddVideoScreen'
-import { getUsersDataRequest } from '@/app/api/users/getUsersDataRequest'
+import { getMeDataRequest } from '@/app/api/users/getMeDataRequest'
 
 export const metadata: Metadata = {
   title: "Add video",
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default async function AddVideoPage() {
   try {
-    const userInfo = await getUsersDataRequest()
+    const userInfo = await getMeDataRequest()
     const { user } = userInfo
 
     if (!user?.id) {
