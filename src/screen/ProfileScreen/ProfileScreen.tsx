@@ -1,6 +1,7 @@
 import styles from './ProfileScreen.module.scss'
 import Link from 'next/link'
 import { AuthUserDto } from '@/shared/types/typesFromBackend'
+import Image from 'next/image'
 
 type ProfileScreenProps = {
   user: AuthUserDto
@@ -8,6 +9,13 @@ type ProfileScreenProps = {
 }
 
 export const ProfileScreen = ({ user, isAuthorized }: ProfileScreenProps) => {
+  const {
+    nickname,
+    bio,
+    youtubeLink,
+    avatarUrl
+  } = user
+
   return (
     <div>
       {isAuthorized && (
@@ -15,15 +23,28 @@ export const ProfileScreen = ({ user, isAuthorized }: ProfileScreenProps) => {
           Edit profile
         </Link>
       )}
-      <p>{user.nickname}</p>
-      <p>{user.bio}</p>
-      <p>{user.youtubeLink}</p>
-      <img
-        src={user.avatarUrl}
-        alt={`Avatar ${user.nickname}`}
-        width={150}
-        height={150}
-      />
+      <h1>{nickname}</h1>
+      {bio && (
+        <p>{bio}</p>
+      )}
+      {youtubeLink && (
+        <a
+          href={youtubeLink}
+          target='_blank'
+          rel="noopener noreferrer"
+        >
+          YouTube channel link
+        </a>
+      )}
+      {avatarUrl && (
+        <Image
+          src={avatarUrl}
+          alt={`Avatar ${nickname}`}
+          width={150}
+          height={150}
+          unoptimized
+        />
+      )}
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { EditProfileScreen } from '@/screen/EditProfileScreen'
 import { getMeDataRequest } from '@/app/api/users/getMeDataRequest'
 
 export const metadata: Metadata = {
-  title: "ProfileEdit: ...",
+  title: "Edit profile",
 }
 
 export default async function ProfileEditPage() {

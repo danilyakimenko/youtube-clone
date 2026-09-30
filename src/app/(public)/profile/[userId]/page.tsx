@@ -3,8 +3,26 @@ import { ProfileScreen } from '@/screen/ProfileScreen'
 import { getUserDataRequest } from '@/app/api/users/getUserDataRequest'
 import { getUserInfoFromAuthToken } from '@/app/api/_libs/getUserInfoFromAuthToken'
 
-export const metadata: Metadata = {
-  title: "Profile: ...",
+export async function generateMetadata({ params }: ProfilePageProps): Promise<Metadata> {
+  try {
+    const data = await params
+    const userId = data.userId
+    const userInfo = await getUserDataRequest({ userId })
+    const { user } = userInfo
+
+    if (!user)
+      return { title: 'User not found' }
+
+    return {
+      title: `Profile: ${user.nickname}`,
+    }
+  }
+  catch (error) {
+    console.error(error)
+    return {
+      title: 'Something went wrong...'
+    }
+  }
 }
 
 type ProfilePageProps = {
@@ -23,7 +41,10 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     }
     const isAuthorized = userFromAuthToken?.id === userId
 
-    return <ProfileScreen user={user} isAuthorized={isAuthorized} />
+    return <ProfileScreen
+      user={user}
+      isAuthorized={isAuthorized}
+    />
   }
   catch (error) {
     console.error(error)
