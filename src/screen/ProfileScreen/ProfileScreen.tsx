@@ -1,16 +1,29 @@
 import styles from './ProfileScreen.module.scss'
 import Link from 'next/link'
+import { AuthUserDto } from '@/shared/types/typesFromBackend'
 
 type ProfileScreenProps = {
-  userId: string
+  user: AuthUserDto
+  isAuthorized: boolean
 }
 
-export const ProfileScreen = ({ userId }: ProfileScreenProps) => {
+export const ProfileScreen = ({ user, isAuthorized }: ProfileScreenProps) => {
   return (
     <div>
-      <Link href={`/profile/${userId}/edit`}>
-        Edit profile
-      </Link>
+      {isAuthorized && (
+        <Link href={`/profile/${user.id}/edit`}>
+          Edit profile
+        </Link>
+      )}
+      <p>{user.nickname}</p>
+      <p>{user.bio}</p>
+      <p>{user.youtubeLink}</p>
+      <img
+        src={user.avatarUrl}
+        alt={`Avatar ${user.nickname}`}
+        width={150}
+        height={150}
+      />
     </div>
   )
 }
